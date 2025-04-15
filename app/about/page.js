@@ -32,7 +32,7 @@ const about = async () => {
 
   return (
     <>
-      <h1>About Page</h1>
+      <h1>About Page - Test</h1>
       <pre>{JSON.stringify(applications, null, 2)}</pre>
     </>
   );
