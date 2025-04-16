@@ -438,7 +438,7 @@ const LoanApplicationForm = () => {
   );
 };
 
-// Handle logout action
+
 const handleLogout = () => {
   alert("Logged out!");
 };
