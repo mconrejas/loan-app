@@ -1,6 +1,4 @@
-/* styles/globals.css */
 
-/* Root Variables */
 :root {
   --background-color: #f0f0f0;
   --primary-color: #003366;
@@ -322,7 +320,7 @@ body {
   margin: 0;
 }
 
-/* Page Number */
+
 .page-number {
   position: absolute;
   top: 12%;
@@ -331,3 +329,5 @@ body {
   font-weight: var(--font-weight-bold);
   color: #33333397;
 }
+
+

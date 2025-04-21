@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import "./styles.css";
+import styles from '../styles/home.module.css';
 
 const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState('personalInfo');
@@ -57,8 +57,6 @@ const Dashboard = () => {
     <a href="#">About Us</a>
   </div>
 </div>
-
-
 
         <ul className="nav-links">
           <li>
