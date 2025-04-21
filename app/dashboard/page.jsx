@@ -50,14 +50,17 @@ const Dashboard = () => {
       <nav className="header-nav">
         {/* Dropdown Menu with unique classname */}
         
-  <div class="dropdown1"> 
-    <button class="dropbtn1">Dashboard<i class="fa fa-caret-down"></i></button> 
-    <div class="dropdown-content1"> 
-      <a href="page">Membership Application Form</a>
-      <a href="urloan">Loan Application Form</a>
-      <a href="#">About Us</a>
-    </div>
-  </div> 
+        <div className="dropdown1">
+  <button className="dropbtn1">
+    Dashboard <i className="fa fa-caret-down"></i>
+  </button>
+  <div className="dropdown-content1">
+    <a href="page">Membership Application Form</a>
+    <a href="urloan">Loan Application Form</a>
+    <a href="#">About Us</a>
+  </div>
+</div>
+
 
 
         <ul className="nav-links">
