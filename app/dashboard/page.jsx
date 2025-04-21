@@ -27,7 +27,15 @@ const Dashboard = () => {
     else if (currentPage === 'Cooperative') setCurrentPage('declaration');
   };  
       
+  const handleSubmit = async () => {
+    setIsButtonDisabled(true);
+    setIsSubmitted(true);
 
+
+  const handleLogout = () => {
+    alert("Logged out!");
+    navigate("/");
+  };
   return (
     <div className="dashboard-container">
     {/* Dashboard Header */}
@@ -428,5 +436,6 @@ const Dashboard = () => {
     </div>
   );
 };
+}
 
 export default Dashboard;
