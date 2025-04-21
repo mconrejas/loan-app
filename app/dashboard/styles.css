@@ -1,3 +1,20 @@
+/* styles/globals.css */
+:root {
+  --background-color: #f0f0f0; /* Set default background color */
+}
+
+body {
+  background-color: var(--background-color);
+}
+
+.header {
+  background-color: var(--background-color); /* Use the variable */
+}
+
+.footer {
+  background-color: var(--background-color); /* Use the variable */
+}
+
 .header {
   background-color: #f8da7671;
   color: rgba(255, 250, 240, 0.842);
