@@ -1,5 +1,7 @@
 "use client";
 import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import "./styles.css";
 
 const Dashboard = () => {
@@ -9,8 +11,7 @@ const Dashboard = () => {
   const [isAnimationVisible, setIsAnimationVisible] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
- 
-
+  
   const handleNextPage = () => {
     if (currentPage === 'personalInfo') setCurrentPage('membershipDetails');
     else if (currentPage === 'membershipDetails') setCurrentPage('shareCapitalContribution');
@@ -30,12 +31,16 @@ const Dashboard = () => {
   const handleSubmit = async () => {
     setIsButtonDisabled(true);
     setIsSubmitted(true);
-
+  };
 
   const handleLogout = () => {
     alert("Logged out!");
     navigate("/");
   };
+
+  const router = useRouter();
+router.push('/page');
+
   return (
     <div className="dashboard-container">
     {/* Dashboard Header */}
@@ -436,6 +441,6 @@ const Dashboard = () => {
     </div>
   );
 };
-}
+
 
 export default Dashboard;
