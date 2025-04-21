@@ -189,8 +189,7 @@ useEffect(() => {
                 <label>1. Are you a resident of Biliran Province?</label>
                 <div className="radio-group">
                   <label>
-                    <input type="checkbox" checked={formData.membershipDetails.isResident} 
-                       onChange={(e) => handleCheckboxChange(e, 'membershipDetails', 'isResident')} /> Yes
+                    <input type="checkbox" /> Yes
                   </label>
                   <label>
                     <input type="checkbox" /> No
