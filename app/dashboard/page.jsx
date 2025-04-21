@@ -248,7 +248,6 @@ const Dashboard = () => {
   <span>(Minimum Required: ( ₱ )<input type="text" placeholder="Enter amount" className="currency-input-field" /></span>
   
 </div>
-
       
               {/* Payment Method */}
               <div className="form-group">
@@ -317,7 +316,6 @@ const Dashboard = () => {
             </form>
           </div>
         )}
-
 
         {currentPage === 'declaration' && (
           <div className="declaration-container">
