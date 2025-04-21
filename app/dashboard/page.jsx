@@ -112,8 +112,8 @@ const Dashboard = () => {
   <div class="dropdown1"> 
     <button class="dropbtn1">Dashboard<i class="fa fa-caret-down"></i></button> 
     <div class="dropdown-content1"> 
-      <a href="dashboard">Membership Application Form</a>
-      <a href="loanform">Loan Application Form</a>
+      <a href="page">Membership Application Form</a>
+      <a href="urloan">Loan Application Form</a>
       <a href="#">About Us</a>
     </div>
   </div> 
