@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import styles from '../styles/home.module.css';
+import "./styles.css";
 
 const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState('personalInfo');
