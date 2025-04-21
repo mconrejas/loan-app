@@ -127,8 +127,8 @@ const LoanApplicationForm = () => {
           <div className="dropdown1">
             <button className="dropbtn1">Dashboard<i className="fa fa-caret-down"></i></button>
             <div className="dropdown-content1">
-              <a href="dashboard">Membership Application Form</a>
-              <a href="loanform">Loan Application Form</a>
+              <a href="page">Membership Application Form</a>
+              <a href="urloan">Loan Application Form</a>
               <a href="about">About Us</a>
             </div>
           </div>
