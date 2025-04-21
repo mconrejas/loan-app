@@ -37,11 +37,8 @@ const Dashboard = () => {
     navigate("/");
   };
 
-  const router = useRouter();
-router.push('/page');
-useEffect(() => {
-  setIsClient(true);
-}, []);
+ 
+
 
   return (
     <div className="dashboard-container">
