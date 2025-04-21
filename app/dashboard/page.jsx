@@ -37,9 +37,6 @@ const Dashboard = () => {
     navigate("/");
   };
 
- 
-
-
   return (
     <div className="dashboard-container">
     {/* Dashboard Header */}
