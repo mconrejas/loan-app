@@ -9,39 +9,7 @@ const Dashboard = () => {
   const [isAnimationVisible, setIsAnimationVisible] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  const [formData, setFormData] = useState({
-    personalInfo: {
-      fullName: "",
-      dateOfBirth: "",
-      age: "",
-      gender: "",
-      civilStatus: [],
-      homeAddress: "",
-      contactNumber: "",
-      email: "",
-      occupation: "",
-      employer: "",
-    },
-    membershipDetails: {
-      isResident: false,
-      previousMembership: false,
-      purpose: [],
-    },
-    shareCapitalContribution: {
-      initialShareCapital: "",
-      minimumRequired: "",
-      paymentMethod: "",
-    },
-    beneficiaryInfo: {
-      beneficiaryName: "",
-      relationship: "",
-      contactNumber: "",
-    },
-    declaration: {
-      signature: "",
-      date: "",
-    },
-  });
+ 
 
   const handleNextPage = () => {
     if (currentPage === 'personalInfo') setCurrentPage('membershipDetails');
@@ -57,47 +25,8 @@ const Dashboard = () => {
     else if (currentPage === 'beneficiaryInfo') setCurrentPage('shareCapitalContribution');
     else if (currentPage === 'declaration') setCurrentPage('beneficiaryInfo');
     else if (currentPage === 'Cooperative') setCurrentPage('declaration');
-  };
-
-  const handleInputChange = (e, section, field) => {
-    const value = e.target.value;
-    setFormData(prevState => ({
-      ...prevState,
-      [section]: {
-        ...prevState[section],
-        [field]: value,
-      },
-    }));
-  };
-
-  const handleCheckboxChange = (e, section, field) => {
-    const value = e.target.checked;
-    setFormData(prevState => ({
-      ...prevState,
-      [section]: {
-        ...prevState[section],
-        [field]: value,
-      },
-    }));
-  };
-
-  const handleMultiCheckboxChange = (e, section, field) => {
-    const value = e.target.value;
-    const isChecked = e.target.checked;
-    setFormData(prevState => {
-      const updatedValues = isChecked
-        ? [...prevState[section][field], value]
-        : prevState[section][field].filter(item => item !== value);
-
-      return {
-        ...prevState,
-        [section]: {
-          ...prevState[section],
-          [field]: updatedValues,
-        },
-      };
-    });
-  };
+  };  
+      
 
   return (
     <div className="dashboard-container">
@@ -146,8 +75,7 @@ const Dashboard = () => {
               {/* Full Name */}
               <div className="form-group">
                 <label> Full Name:</label>
-                <input type="text" placeholder="Enter your full name" 
-                        onChange={(e) => handleInputChange(e, 'personalInfo', 'fullName')} />
+                <input type="text" placeholder="Enter your full name"  />
               </div>
 
               {/* Date of Birth and Age */}
@@ -165,7 +93,7 @@ const Dashboard = () => {
               {/* Gender */}
               <div className="w-1/2 form-group">
                 <label> Gender:</label>
-                <select onChange={(e) => handleInputChange(e, 'personalInfo', 'gender')}>
+                <select>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="Other">Other</option>
