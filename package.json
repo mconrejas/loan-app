@@ -2,25 +2,29 @@
   "name": "first-next-app",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "migration: create": "prisma migrate dev --create-only",
-    "migrate": "prisma migrate dev",
-    "migrate:prod": "prisma migrate deploy",
-    "seed": "node prisma/seed.js",
-    "start:vite": "vite",
-    "build:vite": "vite build",
-    "clear-console": "clear || cls",
-    "start-dev-vite": "vite",
-    "start-dev-react": "react-scripts start",
-    "dev:vite": "npm-run-all -p clear-console start-dev-vite",
-    "dev:react": "npm-run-all -p clear-console start-dev-react",
-    "dev:next": "npm-run-all -s clear-console next"
-    
-  },
+  
+    "scripts": {
+      "dev": "concurrently \"npm run dev:server\" \"npm run dev:frontend\"",
+      "build": "next build",
+      "start": "next start",
+      "lint": "next lint",
+      "migration: create": "prisma migrate dev --create-only",
+      "migrate": "prisma migrate dev",
+      "migrate:prod": "prisma migrate deploy",
+      "seed": "node prisma/seed.js",
+      "start:vite": "vite",
+      "build:vite": "vite build",
+      "clear-console": "clear || cls",
+      "start-dev-vite": "vite",
+      "start-dev-react": "react-scripts start",
+      "dev:vite": "npm-run-all -p clear-console start-dev-vite",
+      "dev:react": "npm-run-all -p clear-console start-dev-react",
+      "dev:next": "npm-run-all -s clear-console next",
+      "dev:server": "node server.js",
+      "dev:frontend": "next dev"
+    },
+  
+  
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -34,6 +38,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "concurrently": "^9.1.2",
     "eslint": "^9",
     "eslint-config-next": "15.2.4",
     "typescript": "^5.1.0"
