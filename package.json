@@ -17,7 +17,9 @@
     "start-dev-vite": "vite",
     "start-dev-react": "react-scripts start",
     "dev:vite": "npm-run-all -p clear-console start-dev-vite",
-    "dev:react": "npm-run-all -p clear-console start-dev-react"
+    "dev:react": "npm-run-all -p clear-console start-dev-react",
+    "dev:next": "npm-run-all -s clear-console next"
+    
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
