@@ -2,12 +2,13 @@
 import Navbar from '../components/Navabar'
 
 
-export default function RootLayout(){
+
+export default function RootLayout() {
   return (
     <html lang="en">
-      <body >
+      <body>
         <Navbar />
-        
+       
       </body>
     </html>
   );

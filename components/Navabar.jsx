@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { AppBar, Toolbar, IconButton, Typography, Button, Stack, Menu, MenuItem } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography, Button, Stack } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
