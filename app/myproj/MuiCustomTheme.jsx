@@ -1,10 +1,11 @@
-import { Box, styled } from '@mui/material'
+import React from 'react';
+import { Box, styled } from '@mui/material';
 
 const StyledBox = styled(Box)(({ theme }) => ({
   height: '250px',
   width: '250px',
-  backgroundColor: theme.palette.neutral?.darker
-}))
+  backgroundColor: theme.palette.grey[800] // fallback to grey
+}));
 
 export const MuiCustomTheme = () => {
   return (
@@ -20,8 +21,9 @@ export const MuiCustomTheme = () => {
             xl: 500
           },
           bgcolor: 'secondary.main'
-        }}></Box>
-      <StyledBox></StyledBox>
+        }}
+      />
+      <StyledBox />
     </>
-  )
-}
+  );
+};
