@@ -1,5 +1,5 @@
 import React from 'react';
-import { MuiNavbar } from './MuiNavbar';
+import { MuiNavbar } from './components/mpage.jsx';
 
 function App() {
   return (

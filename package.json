@@ -21,7 +21,6 @@
     "dev:next": "npm-run-all -s clear-console next",
     "dev:server": "node server.js",
     "dev:frontend": "next dev"
-    
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
