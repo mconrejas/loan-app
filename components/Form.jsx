@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react';
 import { Container, Paper, Typography, TextField, Stack, Button, FormControl, InputLabel, Select, MenuItem, FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 
