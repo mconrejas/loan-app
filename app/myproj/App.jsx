@@ -1,107 +1,75 @@
-import { createTheme, ThemeProvider, colors } from '@mui/material'
-import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import { LocalizationProvider } from '@mui/lab'
-import './App.css'
-// import { MuiTable } from './components/MuiTable'
-import { MuiCustomTheme } from './components/MuiCustomTheme'
+import React, { useState } from 'react';
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Button,
+  Stack,
+  Menu,
+  MenuItem
+} from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-// import { MuiTypography } from './components/MuiTypography'
-// import { MuiButton } from './components/MuiButton'
-// import { MuiTextField } from './components/MuiTextField'
-// import { MuiSelect } from './components/MuiSelect'
-// import { MuiRadioButton } from './components/MuiRadioButton'
-// import { MuiCheckbox } from './components/MuiCheckbox'
-// import { MuiSwitch } from './components/MuiSwitch'
-// import { MuiRating } from './components/MuiRating'
-// import { MuiAutocomplete } from './components/MuiAutocomplete'
-// import { MuiLayout } from './components/MuiLayout'
-// import { MuiCard } from './components/MuiCard'
-// import { MuiAccordion } from './components/MuiAccordion'
-// import { MuiImageList } from './components/MuiImageList'
-import { MuiNavbar } from './components/MuiNavbar'
-// import { MuiLink } from './components/MuiLink'
-// import { MuiBreadcrumbs } from './components/MuiBreadcrumbs'
-// import { MuiDrawer } from './components/MuiDrawer'
-// import { MuiTabs } from './components/MuiTabs'
-// import { MuiSpeedDial } from './components/MuiSpeedDial'
-// import { MuiBottomNavigation } from './components/MuiBottomNavigation'
-// import { MuiAvatar } from './components/MuiAvatar'
-// import { MuiBadge } from './components/MuiBadge'
-// import { MuiList } from './components/MuiList'
-// import { MuiChip } from './components/MuiChip'
-// import { MuiTooltip } from './components/MuiTooltip'
-// import { MuiAlert } from './components/MuiAlert'
-// import { MuiSnackbar } from './components/MuiSnackbar'
-// import { MuiDialog } from './components/MuiDialog'
-// import { MuiSkeleton } from './components/MuiSkeleton'
-// import { MuiProgress } from './components/MuiProgress'
-// import { MuiLoadingButton } from './components/MuiLoadingButton'
-// import { MuiDateTimePicker } from './components/MuiDateTimePicker'
-// import { MuiDateRangePicker } from './components/MuiDateRangePicker'
-// import { MuiTimeline } from './components/MuiTimeline'
-// import { MuiMasonry } from './components/MuiMasonry'
+export const MuiNavbar = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
-const theme = createTheme({
-  status: {
-    danger: '#e53e3e'
-  },
-  palette: {
-    secondary: {
-      main: colors.orange[500]
-    },
-    neutral: {
-      main: colors.grey[500],
-      darker: colors.grey[700]
-    }
-  }
-})
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-function App() {
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <ThemeProvider theme={theme}>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <div className='App'>
-          {/* <MuiTypography /> */}
-          {/* <MuiButton /> */}
-          {/* <MuiTextField /> */}
-          {/* <MuiSelect /> */}
-          {/* <MuiRadioButton /> */}
-          {/* <MuiCheckbox /> */}
-          {/* <MuiSwitch /> */}
-          {/* <MuiRating /> */}
-          {/* <MuiAutocomplete /> */}
-          {/* <MuiLayout /> */}
-          {/* <MuiCard /> */}
-          {/* <MuiAccordion /> */}
-          {/* <MuiImageList /> */}
-          <MuiNavbar />
-          {/* <MuiLink /> */}
-          {/* <MuiBreadcrumbs /> */}
-          {/* <MuiDrawer /> */}
-          {/* <MuiTabs /> */}
-          {/* <MuiSpeedDial /> */}
-          {/* <MuiBottomNavigation /> */}
-          {/* <MuiAvatar /> */}
-          {/* <MuiBadge /> */}
-          {/* <MuiList /> */}
-          {/* <MuiChip /> */}
-          {/* <MuiTooltip /> */}
-          {/* <MuiTable /> */}
-          {/* <MuiAlert /> */}
-          {/* <MuiSnackbar /> */}
-          {/* <MuiDialog /> */}
-          {/* <MuiSkeleton /> */}
-          {/* <MuiProgress /> */}
-          {/* <MuiLoadingButton /> */}
-          {/* <MuiDateTimePicker /> */}
-          {/* <MuiDateRangePicker /> */}
-          {/* <MuiMasonry /> */}
-          {/* <MuiTimeline /> */}
-          <MuiCustomTheme />
-        </div>
-      </LocalizationProvider>
-    </ThemeProvider>
-  )
-}
-
-export default App
+    <AppBar position="static" color="transparent">
+      <Toolbar>
+        <IconButton size="large" edge="start" color="inherit" aria-label="logo">
+          <CatchingPokemonIcon />
+        </IconButton>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          POKEMONAPP
+        </Typography>
+        <Stack direction="row" spacing={2}>
+          <Button color="inherit">Features</Button>
+          <Button color="inherit">Pricing</Button>
+          <Button color="inherit">About</Button>
+          <Button
+            color="inherit"
+            id="resources-button"
+            aria-controls={open ? 'resources-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            endIcon={<KeyboardArrowDownIcon />}
+            onClick={handleClick}
+          >
+            Resources
+          </Button>
+          <Button color="inherit">Login</Button>
+        </Stack>
+        <Menu
+          id="resources-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right'
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right'
+          }}
+          MenuListProps={{
+            'aria-labelledby': 'resources-button'
+          }}
+        >
+          <MenuItem onClick={handleClose}>Blog</MenuItem>
+          <MenuItem onClick={handleClose}>Podcast</MenuItem>
+        </Menu>
+      </Toolbar>
+    </AppBar>
+  );
+};
