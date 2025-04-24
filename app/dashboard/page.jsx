@@ -151,6 +151,7 @@ const Dashboard = () => {
               <div className="form-group">
                 <label>Email Address:</label>
                 <input type="email" placeholder="Enter your email" />
+                
               </div>
 
               {/* Occupation */}
