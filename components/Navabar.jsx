@@ -7,6 +7,7 @@ import {
   FormControl,
   InputLabel,
   Select,
+  Menu,
   MenuItem,
   Typography,
   Stack,
@@ -24,10 +25,22 @@ import {
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
-
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 export default function MembershipForm() {
   const [currentPage, setCurrentPage] = useState('personalInfo');
+  const [gender, setGender] = useState('');
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleNextPage = () => {
     const pages = ['personalInfo', 'membershipDetails', 'shareCapitalContribution', 'beneficiaryInfo', 'declaration'];
@@ -44,7 +57,7 @@ export default function MembershipForm() {
       setCurrentPage(pages[currentIndex - 1]);
     }
   };
-
+  
   
 
   return (
@@ -58,13 +71,28 @@ export default function MembershipForm() {
           My Application
         </Typography>
         <Stack direction="row" spacing={2}>
-          <Button
-            color="inherit"
-            startIcon={<DashboardIcon />}
-            onClick={() => alert("Navigating to Dashboard")}
-          >
-            Dashboard
-          </Button>
+      
+        
+      <Button
+        color="inherit"
+        startIcon={<DashboardIcon />}
+        endIcon={<ArrowDropDownIcon />}  
+        onClick={handleClick} 
+        style={{ left: '8px' }} 
+      >
+        Dashboard
+      </Button>
+
+      <Menu
+        anchorEl={anchorEl}  
+        open={open}  
+        onClose={handleClose}  
+      >
+        <MenuItem onClick={handleClose} sx={{ fontSize: '0.875rem' }}>Membership Application</MenuItem>
+        <MenuItem onClick={handleClose} sx={{ fontSize: '0.875rem' }}>Loan Application</MenuItem>
+      </Menu>
+    
+    
           <Button
             color="inherit"
             startIcon={<LogoutIcon />}
@@ -89,16 +117,22 @@ export default function MembershipForm() {
                   <TextField type="date" label="Date of Birth" InputLabelProps={{ shrink: true }} fullWidth />
                   <TextField label="Age" type="number" fullWidth />
                 </Stack>
-                <FormControl label="Gender"fullWidth>
-  <Select  displayEmpty>
-    <MenuItem value="">
-      <>Select Gender</>
-    </MenuItem>
-    <MenuItem value="Male">Male</MenuItem>
-    <MenuItem value="Female">Female</MenuItem>
-    <MenuItem value="Other">Other</MenuItem>
-  </Select>
-</FormControl>
+                <FormControl fullWidth>
+                  <InputLabel id="gender-label">Gender</InputLabel>
+                  <Select
+                    labelId="gender-label"
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
+                    label="Gender"
+                  >
+                    <MenuItem value="">
+                      <em>Select Gender</em>
+                    </MenuItem>
+                    <MenuItem value="Male">Male</MenuItem>
+                    <MenuItem value="Female">Female</MenuItem>
+                    <MenuItem value="Other">Other</MenuItem>
+                  </Select>
+                </FormControl>
                 <FormGroup>
                   <Typography variant="subtitle1">Civil Status</Typography>
                   {['Single', 'Married', 'Widow/er', 'Others'].map((status) => (
