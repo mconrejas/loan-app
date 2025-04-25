@@ -58,7 +58,7 @@ export default function MembershipForm() {
   return (
     <>
 
-      <Container maxWidth="md" sx={{ mt: 10, mb: 5 }}>
+      <Container maxWidth="md" sx={{ mt: 4, mb: 5 }}>
         <Paper elevation={3} sx={{ p: 4 }}>
           <center><Typography variant="h5" gutterBottom>Membership Application Form</Typography></center>
 
@@ -310,4 +310,5 @@ export default function MembershipForm() {
       </Container>
     </>
   );
-}
+}  
+      
