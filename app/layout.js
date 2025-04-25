@@ -7,8 +7,7 @@ export default function RootLayout() {
   return (
     <html lang="en">
       <body>
-        {/* <Navbar /> */}
-        <Member />
+        <Navbar />
     
       </body>
     </html>
