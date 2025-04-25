@@ -1,6 +1,6 @@
 
 import Member from '../components/Membership'
-import Navbar from '../components/Navabar'
+// import Navbar from '../components/Navabar'
 
 
 export default function RootLayout() {
@@ -8,6 +8,7 @@ export default function RootLayout() {
     <html lang="en">
       <body>
         <Navbar />
+        {/* <Member /> */}
     
       </body>
     </html>
