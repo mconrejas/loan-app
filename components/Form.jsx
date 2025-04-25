@@ -79,8 +79,8 @@ const LoanApplicationForm = () => {
                 ))}
                 <TextField label="If other, specify" fullWidth />
               </FormGroup>
-              <Stack direction="row" spacing={2} justifyContent="flex-end">
-                <Button variant="contained" onClick={handleBackPage}>Back</Button>
+              <Stack direction="row" spacing={2} justifyContent="space-between">
+                <Button onClick={handleBackPage}>Back</Button>
                 <Button variant="contained" onClick={handleNextPage}>Next</Button>
               </Stack>
             </FormGroup>
@@ -99,8 +99,8 @@ const LoanApplicationForm = () => {
               <TextField label="Guarantor Name (if applicable)" fullWidth />
               <TextField label="Guarantor Contact Number" fullWidth />
               <TextField label="Guarantor Relationship to Borrower" fullWidth />
-              <Stack direction="row" spacing={2} justifyContent="flex-end">
-                <Button variant="contained" onClick={handleBackPage}>Back</Button>
+              <Stack direction="row" spacing={2} justifyContent="space-between">
+                <Button onClick={handleBackPage}>Back</Button>
                 <Button variant="contained" onClick={handleNextPage}>Next</Button>
               </Stack>
             </FormGroup>
@@ -121,8 +121,8 @@ const LoanApplicationForm = () => {
               <TextField label="Address" fullWidth />
               <TextField label="Contact Number" fullWidth />
               <TextField label="Relationship" fullWidth />
-              <Stack direction="row" spacing={2} justifyContent="flex-end">
-                <Button variant="contained" onClick={handleBackPage}>Back</Button>
+              <Stack direction="row" spacing={2} justifyContent="space-between">
+                <Button onClick={handleBackPage}>Back</Button>
                 <Button variant="contained" onClick={handleNextPage}>Next</Button>
               </Stack>
             </FormGroup>
@@ -137,8 +137,8 @@ const LoanApplicationForm = () => {
             </Typography>
             <TextField label="Borrower's Signature" type="file" fullWidth />
             <TextField label="Date" type="date" InputLabelProps={{ shrink: true }} fullWidth />
-            <Stack direction="row" spacing={2} justifyContent="flex-end">
-              <Button variant="contained" onClick={handleBackPage}>Back</Button>
+            <Stack direction="row" spacing={2} justifyContent="space-between">
+              <Button onClick={handleBackPage}>Back</Button>
               <Button variant="contained" onClick={handleNextPage}>Next</Button>
             </Stack>
           </>
@@ -165,8 +165,8 @@ const LoanApplicationForm = () => {
             <TextField label="Loan Officer's Name" fullWidth />
             <TextField label="Loan Officer's Signature" type="file" fullWidth />
             <TextField label="Date" type="date" InputLabelProps={{ shrink: true }} fullWidth />
-            <Stack direction="row" spacing={2} justifyContent="flex-end">
-              <Button variant="contained" onClick={handleBackPage}>Back</Button>
+            <Stack direction="row" spacing={2} justifyContent="space-between">
+              <Button onClick={handleBackPage}>Back</Button>
               <Button variant="contained" onClick={() => alert('Form Submitted!')}>Submit</Button>
             </Stack>
           </>

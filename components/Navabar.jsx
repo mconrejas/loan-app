@@ -25,6 +25,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
 
+
 export default function MembershipForm() {
   const [currentPage, setCurrentPage] = useState('personalInfo');
 
@@ -88,15 +89,16 @@ export default function MembershipForm() {
                   <TextField type="date" label="Date of Birth" InputLabelProps={{ shrink: true }} fullWidth />
                   <TextField label="Age" type="number" fullWidth />
                 </Stack>
-                <FormControl fullWidth>
-                  <InputLabel>Gender</InputLabel>
-                  <Select defaultValue="">
-                    <MenuItem value="Male">Male</MenuItem>
-                    <MenuItem value="Female">Female</MenuItem>
-                    <MenuItem value="Other">Other</MenuItem>
-                  </Select>
-                </FormControl>
-
+                <FormControl label="Gender"fullWidth>
+  <Select  displayEmpty>
+    <MenuItem value="">
+      <>Select Gender</>
+    </MenuItem>
+    <MenuItem value="Male">Male</MenuItem>
+    <MenuItem value="Female">Female</MenuItem>
+    <MenuItem value="Other">Other</MenuItem>
+  </Select>
+</FormControl>
                 <FormGroup>
                   <Typography variant="subtitle1">Civil Status</Typography>
                   {['Single', 'Married', 'Widow/er', 'Others'].map((status) => (
