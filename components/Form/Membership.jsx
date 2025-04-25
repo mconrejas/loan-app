@@ -19,21 +19,15 @@ import {
 } from '@mui/material';
 
 
-
-
-
 export default function MembershipForm() {
   const [currentPage, setCurrentPage] = useState('personalInfo');
   const [gender, setGender] = useState('');
   const [approved, setApproved] = useState(false);
   const [notApproved, setNotApproved] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+
 
   const handleApprovedChange = (event) => setApproved(event.target.checked);
   const handleNotApprovedChange = (event) => setNotApproved(event.target.checked);
-  const handleClick = (event) => setAnchorEl(event.currentTarget);
-  const handleClose = () => setAnchorEl(null);
 
   const handleNextPage = () => {
     const pages = [
@@ -311,9 +305,6 @@ export default function MembershipForm() {
         </>
       )}
    
-  
-
-
 
         </Paper>
       </Container>
