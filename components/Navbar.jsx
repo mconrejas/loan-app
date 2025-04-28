@@ -1,18 +1,18 @@
 'use client';
-import Link from next/link;
-import {useRouter} from next/router;
+
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import {
   Button,
   Menu,
   MenuItem,
-  Typography,
-  Stack,
   AppBar,
   Toolbar,
+  Typography,
   IconButton,
+  Stack,
   useScrollTrigger,
-  Slide
+  Slide,
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -27,19 +27,12 @@ function HideOnScroll({ children }) {
     </Slide>
   );
 }
-const router = useRouter();
-
-const handleNavigate = (path) => {
-  handleClose(); // close the menu
-  router.push(path); // navigate
-};
-
 
 export default function MembershipForm() {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  // Define the missing handlers
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -48,12 +41,17 @@ export default function MembershipForm() {
     setAnchorEl(null);
   };
 
+  const navigateToMembership = () => {
+    handleClose();
+    router.push('/membership');
+  };
+
   return (
     <>
       <HideOnScroll>
         <AppBar position="fixed" color="primary">
           <Toolbar>
-            <IconButton size="large" edge="start" color="inherit" aria-label="logo">
+            <IconButton size="large" edge="start" color="inherit">
               <AccountCircleIcon />
             </IconButton>
 
@@ -71,13 +69,12 @@ export default function MembershipForm() {
                 Dashboard
               </Button>
 
-              <MenuItem onClick={() => handleNavigate('/membership')} sx={{ fontSize: '0.86rem' }}>
-       Membership Application
-      </MenuItem>
-      <MenuItem onClick={() => handleNavigate('/loan')} sx={{ fontSize: '0.86rem' }}>
-      Loan Application
-      </MenuItem>
-
+              {/* Dropdown menu for Dashboard */}
+              <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+                <MenuItem onClick={navigateToMembership}>
+                  Membership Application
+                </MenuItem>
+              </Menu>
 
               <Button
                 color="inherit"
@@ -91,8 +88,7 @@ export default function MembershipForm() {
         </AppBar>
       </HideOnScroll>
 
-      {/* Spacer to push content below the fixed AppBar */}
-      <Toolbar />
+      <Toolbar /> {/* Spacer */}
     </>
   );
 }
