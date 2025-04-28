@@ -42,15 +42,15 @@ export default function MembershipForm() {
     
     setApproved(event.target.checked);
     if (event.target.checked) {
-      setNotApproved(false); // Uncheck Not Approved
+      setNotApproved(false); 
     }
   };
 
   const handleNotApprovedChange = (event) => {
-    // If Not Approved is checked, set Approved to false
+  
     setNotApproved(event.target.checked);
     if (event.target.checked) {
-      setApproved(false); // Uncheck Approved
+      setApproved(false); 
     }
   };
 
