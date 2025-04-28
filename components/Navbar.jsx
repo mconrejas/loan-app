@@ -27,6 +27,13 @@ function HideOnScroll({ children }) {
     </Slide>
   );
 }
+const router = useRouter();
+
+const handleNavigate = (path) => {
+  handleClose(); // close the menu
+  router.push(path); // navigate
+};
+
 
 export default function MembershipForm() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -64,14 +71,13 @@ export default function MembershipForm() {
                 Dashboard
               </Button>
 
-              <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                <MenuItem onClick={handleClose} sx={{ fontSize: '0.86rem' }}>
-                  Membership Application
-                </MenuItem>
-                <MenuItem onClick={handleClose} sx={{ fontSize: '0.86rem' }}>
-                  Loan Application
-                </MenuItem>
-              </Menu>
+              <MenuItem onClick={() => handleNavigate('/membership')} sx={{ fontSize: '0.86rem' }}>
+  Membership Application
+</MenuItem>
+<MenuItem onClick={() => handleNavigate('/loan')} sx={{ fontSize: '0.86rem' }}>
+  Loan Application
+</MenuItem>
+
 
               <Button
                 color="inherit"
