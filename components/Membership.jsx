@@ -26,6 +26,8 @@ export default function MembershipForm() {
   const [notApproved, setNotApproved] = useState(false);
   const [membershipStatus, setMembershipStatus] = useState('');
   const [membershipPeriod, setMembershipPeriod] = useState('');
+  const [selectedPurpose, setSelectedPurpose] = useState('');
+  const [otherText, setOtherText] = useState('');
 
   const handleMembershipStatusChange = (event) => {
     const value = event.target.value;
@@ -54,6 +56,12 @@ export default function MembershipForm() {
     }
   };
 
+ 
+
+  const handleChange = (value) => () => {
+    setSelectedPurpose(value === selectedPurpose ? '' : value); 
+
+  }
   const handleNextPage = () => {
     const pages = [
       'personalInfo',
@@ -188,28 +196,47 @@ export default function MembershipForm() {
     <TextField
       label="If yes, indicate the period"
       fullWidth
-      style={{ visibility: membershipStatus === 'Yes'  }}
     />
   </div>
-</FormGroup>
+</FormGroup>      
 
-             
+<FormGroup>
+      <Typography>Purpose of Joining:</Typography>
 
-              <FormGroup>
-                <Typography>Purpose of Joining:</Typography>
-                {['Savings and Credit', 'Livelihood Assistance', 'Health Benefits'].map((item) => (
-                  <FormControlLabel key={item} control={<Checkbox />} label={item} />
-                ))}
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label={
-                    <Stack direction="row" alignItems="center">
-                      <span>Others:</span>
-                      <TextField size="small" sx={{ ml: 1 }} />
-                    </Stack>
-                  }
-                />
-              </FormGroup>
+      {['Savings and Credit', 'Livelihood Assistance', 'Health Benefits'].map((item) => (
+        <FormControlLabel
+          key={item}
+          control={
+            <Checkbox
+              checked={selectedPurpose === item}
+              onChange={handleChange(item)}
+            />
+          }
+          label={item}
+        />
+      ))}
+
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={selectedPurpose === 'Others'}
+            onChange={handleChange('Others')}
+          />
+        }
+        label={
+          <Stack direction="row" alignItems="center">
+            <span>Others:</span>
+            <TextField
+              size="small"
+              sx={{ ml: 1 }}
+              disabled={selectedPurpose !== 'Others'}
+              value={otherText}
+              onChange={(e) => setOtherText(e.target.value)}
+            />
+          </Stack>
+        }
+      />
+    </FormGroup>
 
               <Stack direction="row" spacing={2} justifyContent="space-between">
                 <Button onClick={handleBackPage}>Back</Button>
