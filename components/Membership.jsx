@@ -130,7 +130,7 @@ export default function MembershipForm() {
         />
       ))}
       {selectedStatus === 'Others' && (
-        <TextField label="If others, specify" fullWidth  />
+        <TextField label="If others, specify"  size="small" />
         
       )}
     </FormGroup>
