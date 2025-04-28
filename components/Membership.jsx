@@ -26,22 +26,20 @@ export default function MembershipForm() {
   const [notApproved, setNotApproved] = useState(false);
   const [membershipStatus, setMembershipStatus] = useState('');
   const [membershipPeriod, setMembershipPeriod] = useState('');
-  const [selectedPurpose, setSelectedPurpose] = useState('');
-  const [otherText, setOtherText] = useState('');
 
   const handleMembershipStatusChange = (event) => {
     const value = event.target.value;
-    setMembershipStatus(value);  // Set the selected membership status
+    setMembershipStatus(value);  
   };
   const [selectedStatus, setSelectedStatus] = useState('');
 
   const handleStatusChange = (event) => {
     const value = event.target.value;
-    setSelectedStatus(value);  // Set the selected status
+    setSelectedStatus(value); 
   };
 
   const handleApprovedChange = (event) => {
-    // If Approved is checked, set Not Approved to false
+    
     setApproved(event.target.checked);
     if (event.target.checked) {
       setNotApproved(false); // Uncheck Not Approved
@@ -56,12 +54,7 @@ export default function MembershipForm() {
     }
   };
 
- 
-
-  const handleChange = (value) => () => {
-    setSelectedPurpose(value === selectedPurpose ? '' : value); 
-
-  }
+  
   const handleNextPage = () => {
     const pages = [
       'personalInfo',
@@ -200,43 +193,21 @@ export default function MembershipForm() {
   </div>
 </FormGroup>      
 
-<FormGroup>
-      <Typography>Purpose of Joining:</Typography>
-
-      {['Savings and Credit', 'Livelihood Assistance', 'Health Benefits'].map((item) => (
-        <FormControlLabel
-          key={item}
-          control={
-            <Checkbox
-              checked={selectedPurpose === item}
-              onChange={handleChange(item)}
-            />
-          }
-          label={item}
-        />
-      ))}
-
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={selectedPurpose === 'Others'}
-            onChange={handleChange('Others')}
-          />
-        }
-        label={
-          <Stack direction="row" alignItems="center">
-            <span>Others:</span>
-            <TextField
-              size="small"
-              sx={{ ml: 1 }}
-              disabled={selectedPurpose !== 'Others'}
-              value={otherText}
-              onChange={(e) => setOtherText(e.target.value)}
-            />
-          </Stack>
-        }
-      />
-    </FormGroup>
+              <FormGroup>
+                <Typography>Purpose of Joining:</Typography>
+                {['Savings and Credit', 'Livelihood Assistance', 'Health Benefits'].map((item) => (
+                  <FormControlLabel key={item} control={<Checkbox />} label={item} />
+                ))}
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label={
+                    <Stack direction="row" alignItems="center">
+                      <span>Others:</span>
+                      <TextField size="small" sx={{ ml: 1 }} />
+                    </Stack>
+                  }
+                />
+              </FormGroup>
 
               <Stack direction="row" spacing={2} justifyContent="space-between">
                 <Button onClick={handleBackPage}>Back</Button>
