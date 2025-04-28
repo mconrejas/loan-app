@@ -72,11 +72,11 @@ export default function MembershipForm() {
               </Button>
 
               <MenuItem onClick={() => handleNavigate('/membership')} sx={{ fontSize: '0.86rem' }}>
-  Membership Application
-</MenuItem>
-<MenuItem onClick={() => handleNavigate('/loan')} sx={{ fontSize: '0.86rem' }}>
-  Loan Application
-</MenuItem>
+       Membership Application
+      </MenuItem>
+      <MenuItem onClick={() => handleNavigate('/loan')} sx={{ fontSize: '0.86rem' }}>
+      Loan Application
+      </MenuItem>
 
 
               <Button
