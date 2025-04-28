@@ -24,10 +24,35 @@ export default function MembershipForm() {
   const [gender, setGender] = useState('');
   const [approved, setApproved] = useState(false);
   const [notApproved, setNotApproved] = useState(false);
+  const [membershipStatus, setMembershipStatus] = useState('');
+  const [membershipPeriod, setMembershipPeriod] = useState('');
 
+  const handleMembershipStatusChange = (event) => {
+    const value = event.target.value;
+    setMembershipStatus(value);  // Set the selected membership status
+  };
+  const [selectedStatus, setSelectedStatus] = useState('');
 
-  const handleApprovedChange = (event) => setApproved(event.target.checked);
-  const handleNotApprovedChange = (event) => setNotApproved(event.target.checked);
+  const handleStatusChange = (event) => {
+    const value = event.target.value;
+    setSelectedStatus(value);  // Set the selected status
+  };
+
+  const handleApprovedChange = (event) => {
+    // If Approved is checked, set Not Approved to false
+    setApproved(event.target.checked);
+    if (event.target.checked) {
+      setNotApproved(false); // Uncheck Not Approved
+    }
+  };
+
+  const handleNotApprovedChange = (event) => {
+    // If Not Approved is checked, set Approved to false
+    setNotApproved(event.target.checked);
+    if (event.target.checked) {
+      setApproved(false); // Uncheck Approved
+    }
+  };
 
   const handleNextPage = () => {
     const pages = [
@@ -82,18 +107,31 @@ export default function MembershipForm() {
                     <MenuItem value="">
                       <em>Select Gender</em>
                     </MenuItem>
-                    <MenuItem value="Male">Male</MenuItem>
+                    <MenuItem value="Male" >Male</MenuItem>
                     <MenuItem value="Female">Female</MenuItem>
                     <MenuItem value="Other">Other</MenuItem>
                   </Select>
                 </FormControl>
                 <FormGroup>
-                  <Typography variant="subtitle1">Civil Status</Typography>
-                  {['Single', 'Married', 'Widow/er', 'Others'].map((status) => (
-                    <FormControlLabel key={status} control={<Checkbox />} label={status} />
-                  ))}
-                  <TextField label="If others, specify" />
-                </FormGroup>
+      <Typography variant="subtitle1">Civil Status</Typography>
+      {['Single', 'Married', 'Widow/er', 'Others'].map((status) => (
+        <FormControlLabel
+          key={status}
+          control={
+            <Checkbox
+              value={status}
+              checked={selectedStatus === status}  
+              onChange={handleStatusChange}
+              color="primary"
+            />
+          }
+          label={status}
+        />
+      ))}
+      {selectedStatus === 'Others' && (
+        <TextField label="If others, specify" fullWidth />
+      )}
+    </FormGroup>
 
                 <TextField label="Home Address" fullWidth />
                 <TextField label="Contact Number" fullWidth />
@@ -111,17 +149,51 @@ export default function MembershipForm() {
             <>
               <Typography variant="h6">II. Membership Details</Typography>
               <FormGroup>
-                <Typography>Are you a resident of Biliran Province?</Typography>
-                <FormControlLabel control={<Checkbox />} label="Yes" />
-                <FormControlLabel control={<Checkbox />} label="No" />
-              </FormGroup>
+      <Typography>Are you a resident of Biliran Province?</Typography>
+      {['Yes', 'No'].map((status) => (
+        <FormControlLabel
+          key={status}
+          control={
+            <Checkbox
+            value={status}
+            checked={selectedStatus === status}  
+            onChange={handleStatusChange}
+              color="primary"
+            />
+          }
+          label={status}
+        />
+      ))}
+    </FormGroup>
 
-              <FormGroup>
-                <Typography>Previously a member?</Typography>
-                <FormControlLabel control={<Checkbox />} label="Yes" />
-                <FormControlLabel control={<Checkbox />} label="No" />
-                <TextField label="If yes, indicate the period" />
-              </FormGroup>
+    <FormGroup>
+  <Typography>Previously a member?</Typography>
+
+  {['Yes', 'No'].map((status) => (
+    <FormControlLabel
+      key={status}
+      control={
+        <Checkbox
+          value={status}
+          checked={membershipStatus === status}
+          onChange={handleMembershipStatusChange}
+          color="primary"
+        />
+      }
+      label={status}
+    />
+  ))}
+
+  <div style={{ minHeight: '70px' }}>
+    <TextField
+      label="If yes, indicate the period"
+      fullWidth
+      style={{ visibility: membershipStatus === 'Yes'  }}
+    />
+  </div>
+</FormGroup>
+
+             
 
               <FormGroup>
                 <Typography>Purpose of Joining:</Typography>
@@ -271,29 +343,31 @@ export default function MembershipForm() {
             />
             
             {/* Remarks */}
-            <Typography variant="body1" sx={{ marginBottom: 4 }}>Remarks:</Typography>
-            <Stack direction="row" spacing={2} sx={{ marginTop: 0.1 }}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={approved}
-                    onChange={handleApprovedChange}
-                    color="primary"
-                  />
-                }
-                label="Approved"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={notApproved}
-                    onChange={handleNotApprovedChange}
-                    color="primary"
-                  />
-                }
-                label="Not Approved"
-              />
-            </Stack>
+            <Typography variant="body1" sx={{ marginBottom: 4 }}>
+        Remarks:
+      </Typography>
+      <Stack direction="row" spacing={2} sx={{ marginTop: 0.1 }}>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={approved}
+              onChange={handleApprovedChange}
+              color="primary"
+            />
+          }
+          label="Approved"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={notApproved}
+              onChange={handleNotApprovedChange}
+              color="primary"
+            />
+          }
+          label="Not Approved"
+        />
+      </Stack>
             
             {/* Action Buttons */}
             <Stack direction="row" spacing={2} justifyContent="space-between">
