@@ -1,18 +1,17 @@
 'use client';
 
-import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import {
   Button,
   Menu,
   MenuItem,
+  Typography,
+  Stack,
   AppBar,
   Toolbar,
-  Typography,
   IconButton,
-  Stack,
   useScrollTrigger,
-  Slide,
+  Slide
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -29,7 +28,6 @@ function HideOnScroll({ children }) {
 }
 
 export default function MembershipForm() {
-  const router = useRouter();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -41,17 +39,12 @@ export default function MembershipForm() {
     setAnchorEl(null);
   };
 
-  const navigateToMembership = () => {
-    handleClose();
-    router.push('/membership');
-  };
-
   return (
     <>
       <HideOnScroll>
         <AppBar position="fixed" color="primary">
           <Toolbar>
-            <IconButton size="large" edge="start" color="inherit">
+            <IconButton size="large" edge="start" color="inherit" aria-label="logo">
               <AccountCircleIcon />
             </IconButton>
 
@@ -60,6 +53,7 @@ export default function MembershipForm() {
             </Typography>
 
             <Stack direction="row" spacing={2}>
+              {/* Dashboard Dropdown Button */}
               <Button
                 color="inherit"
                 startIcon={<DashboardIcon />}
@@ -69,13 +63,29 @@ export default function MembershipForm() {
                 Dashboard
               </Button>
 
-              {/* Dropdown menu for Dashboard */}
-              <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                <MenuItem onClick={navigateToMembership}>
+              {/* Dashboard Dropdown Menu */}
+              <Menu
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+              >
+                <MenuItem onClick={handleClose} sx={{ fontSize: '0.70rem' }}>
                   Membership Application
+                </MenuItem>
+                <MenuItem onClick={handleClose} sx={{ fontSize: '0.70rem' }}>
+                  Loan Application
                 </MenuItem>
               </Menu>
 
+              {/* Logout Button */}
               <Button
                 color="inherit"
                 startIcon={<LogoutIcon />}
@@ -88,7 +98,8 @@ export default function MembershipForm() {
         </AppBar>
       </HideOnScroll>
 
-      <Toolbar /> {/* Spacer */}
+      {/* Spacer to push content below the fixed AppBar */}
+      <Toolbar />
     </>
   );
 }
