@@ -1,5 +1,5 @@
-import MembershipForm from '../components/Membership'; // Adjust the path accordingly
+import Member from '../components/Membership'; // Adjust the path accordingly
 
 export default function MembershipPage() {
-  return <MembershipForm />;
+  return <Member />;
 }
