@@ -1,0 +1,7 @@
+import Member from '../components/Membership'
+
+export default function MembershipApp (){
+    return (
+        <Member />
+    )
+}

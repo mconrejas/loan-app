@@ -17,6 +17,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { useRouter } from 'next/router';  // Import useRouter from next/router for navigation
 
 function HideOnScroll({ children }) {
   const trigger = useScrollTrigger();
@@ -30,6 +31,7 @@ function HideOnScroll({ children }) {
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const router = useRouter();  // Initialize the router to enable navigation
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -38,6 +40,11 @@ export default function Navbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleNavigation= () => {
+    router.push('/membership');
+    handleClose();
+};
 
   return (
     <>
@@ -77,10 +84,10 @@ export default function Navbar() {
                   horizontal: 'right',
                 }}
               >
-                <MenuItem onClick={handleClose} sx={{ fontSize: '0.70rem' }}>
+                <MenuItem onClick={() => handleNavigation('/membership')} sx={{ fontSize: '0.75rem' }}>
                   Membership Application
                 </MenuItem>
-                <MenuItem onClick={handleClose} sx={{ fontSize: '0.70rem' }}>
+                <MenuItem onClick={() => handleNavigation('/loan-application')} sx={{ fontSize: '0.75rem' }}>
                   Loan Application
                 </MenuItem>
               </Menu>
