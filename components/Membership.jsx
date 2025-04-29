@@ -26,6 +26,7 @@ export default function MembershipForm() {
   const [notApproved, setNotApproved] = useState(false);
   const [membershipStatus, setMembershipStatus] = useState('');
   const [membershipPeriod, setMembershipPeriod] = useState('');
+  const [selectedPurpose, setSelectedPurpose] = useState('');
 
   const handleMembershipStatusChange = (event) => {
     const value = event.target.value;
@@ -52,6 +53,17 @@ export default function MembershipForm() {
     if (event.target.checked) {
       setApproved(false); 
     }
+  };
+
+  const handlePurposeChange = (event) => {
+    const value = event.target.value;
+    setSelectedPurpose(value);
+  };
+
+  const [paymentMethod, setPaymentMethod] = useState('');
+
+  const handlePaymentMethodChange = (event) => {
+    setPaymentMethod(event.target.value);
   };
 
   
@@ -190,25 +202,52 @@ export default function MembershipForm() {
     <TextField
       label="If yes, indicate the period"
       fullWidth
+      disabled={membershipStatus !== 'Yes'}
     />
   </div>
 </FormGroup>      
 
-              <FormGroup>
-                <Typography>Purpose of Joining:</Typography>
-                {['Savings and Credit', 'Livelihood Assistance', 'Health Benefits'].map((item) => (
-                  <FormControlLabel key={item} control={<Checkbox />} label={item} />
-                ))}
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label={
-                    <Stack direction="row" alignItems="center">
-                      <span>Others:</span>
-                      <TextField size="small" sx={{ ml: 1 }} />
-                    </Stack>
-                  }
-                />
-              </FormGroup>
+<FormGroup>
+      <Typography>Purpose of Joining:</Typography>
+
+      {/* Checkbox logic to ensure only one can be checked */}
+      {['Savings and Credit', 'Livelihood Assistance', 'Health Benefits'].map((item) => (
+        <FormControlLabel
+          key={item}
+          control={
+            <Checkbox
+              value={item}
+              checked={selectedPurpose === item}
+              onChange={handlePurposeChange}
+              color="primary"
+            />
+          }
+          label={item}
+        />
+      ))}
+
+      {/* 'Others' option with a text field */}
+      <FormControlLabel
+        control={
+          <Checkbox
+            value="Others"
+            checked={selectedPurpose === 'Others'}
+            onChange={handlePurposeChange}
+            color="primary"
+          />
+        }
+        label={
+          <Stack direction="row" alignItems="center">
+            <span>Others:</span>
+            <TextField
+              size="small"
+              disabled={selectedPurpose !== 'Others'}
+              sx={{ ml: 1 }}
+            />
+          </Stack>
+        }
+      />
+    </FormGroup>
 
               <Stack direction="row" spacing={2} justifyContent="space-between">
                 <Button onClick={handleBackPage}>Back</Button>
@@ -225,20 +264,46 @@ export default function MembershipForm() {
                 <TextField label="Minimum Required (₱)" fullWidth />
 
                 <FormGroup>
-                  <Typography>Payment Method:</Typography>
-                  {['Cash', 'Check', 'Bank Transfer'].map((method) => (
-                    <FormControlLabel key={method} control={<Checkbox />} label={method} />
-                  ))}
-                  <FormControlLabel
-                    control={<Checkbox />}
-                    label={
-                      <Stack direction="row" alignItems="center">
-                        <span>Other:</span>
-                        <TextField size="small" sx={{ ml: 1 }} />
-                      </Stack>
-                    }
-                  />
-                </FormGroup>
+      <Typography>Payment Method:</Typography>
+
+      {/* Payment method checkboxes */}
+      {['Cash', 'Check', 'Bank Transfer'].map((method) => (
+        <FormControlLabel
+          key={method}
+          control={
+            <Checkbox
+              value={method}
+              checked={paymentMethod === method}
+              onChange={handlePaymentMethodChange}
+              color="primary"
+            />
+          }
+          label={method}
+        />
+      ))}
+
+      {/* 'Other' checkbox with a text field */}
+      <FormControlLabel
+        control={
+          <Checkbox
+            value="Other"
+            checked={paymentMethod === 'Other'}
+            onChange={handlePaymentMethodChange}
+            color="primary"
+          />
+        }
+        label={
+          <Stack direction="row" alignItems="center">
+            <span>Other:</span>
+            <TextField
+              size="small"
+              disabled={paymentMethod !== 'Other'}
+              sx={{ ml: 1 }}
+            />
+          </Stack>
+        }
+      />
+    </FormGroup>
 
                 <Stack direction="row" spacing={2} justifyContent="space-between">
                   <Button onClick={handleBackPage}>Back</Button>
@@ -371,7 +436,7 @@ export default function MembershipForm() {
             {/* Action Buttons */}
             <Stack direction="row" spacing={2} justifyContent="space-between">
               <Button onClick={handleBackPage}>Back</Button>
-              <Button variant="contained">Submit</Button>
+              <Button variant="contained" onClick={() => alert('Form Submitted!')}>Submit</Button>
             </Stack>
           </Stack>
         </div>
