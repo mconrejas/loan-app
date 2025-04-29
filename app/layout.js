@@ -1,6 +1,6 @@
 import Navbar from '../components/Navbar'
-// import Member from '../components/Membership';  
-
+import Member from '../components/Membership';  
+// import Loan from '../components/Form'
 
 
 export default function RootLayout() {
@@ -8,7 +8,8 @@ export default function RootLayout() {
     <html lang="en">
       <body>
         <Navbar />
-        {/* <Member /> */}
+        <Member />
+        {/* <Loan /> */}
     
       </body>
    
