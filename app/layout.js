@@ -1,7 +1,6 @@
-
-import Member from '../components/Membership'
 import Navbar from '../components/Navbar'
-import {LoanApplicationForm} from '../components/Form'
+import Member from '../components/Membership';  
+
 
 
 export default function RootLayout() {

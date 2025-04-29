@@ -27,7 +27,7 @@ function HideOnScroll({ children }) {
   );
 }
 
-export default function MembershipForm() {
+export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 

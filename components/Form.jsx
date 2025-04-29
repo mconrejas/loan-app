@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { Container, Paper, Typography, TextField, Stack, Button, FormControl, InputLabel, Select, MenuItem, FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 
-const LoanApplicationForm = () => {
+export default function LoanApplicationForm() {
+ 
   const [currentPage, setCurrentPage] = useState("personalInfo");
 
   const handleNextPage = () => {
@@ -176,4 +177,4 @@ const LoanApplicationForm = () => {
   );
 };
 
-export default LoanApplicationForm;
+
