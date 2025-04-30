@@ -15,9 +15,7 @@ import {
   FormGroup,
   Container,
   Paper,
-
 } from '@mui/material';
-
 
 export default function MembershipForm() {
   const [currentPage, setCurrentPage] = useState('personalInfo');
@@ -27,46 +25,30 @@ export default function MembershipForm() {
   const [membershipStatus, setMembershipStatus] = useState('');
   const [membershipPeriod, setMembershipPeriod] = useState('');
   const [selectedPurpose, setSelectedPurpose] = useState('');
-
-  const handleMembershipStatusChange = (event) => {
-    const value = event.target.value;
-    setMembershipStatus(value);  
-  };
   const [selectedStatus, setSelectedStatus] = useState('');
+  const [formData, setFormData] = useState({
+    fullName: '',
+    dateOfBirth: '',
+    age: '',
+    homeAddress: '',
+    contactNumber: '',
+    emailAddress: '',
+    occupation: '',
+    employerBusiness: '',
+  });
 
-  const handleStatusChange = (event) => {
-    const value = event.target.value;
-    setSelectedStatus(value); 
+  const handleStatusChange = (e) => {
+    setSelectedStatus(e.target.value);
   };
 
-  const handleApprovedChange = (event) => {
-    
-    setApproved(event.target.checked);
-    if (event.target.checked) {
-      setNotApproved(false); 
-    }
+  const handleGenderChange = (e) => {
+    setGender(e.target.value);
   };
 
-  const handleNotApprovedChange = (event) => {
-  
-    setNotApproved(event.target.checked);
-    if (event.target.checked) {
-      setApproved(false); 
-    }
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handlePurposeChange = (event) => {
-    const value = event.target.value;
-    setSelectedPurpose(value);
-  };
-
-  const [paymentMethod, setPaymentMethod] = useState('');
-
-  const handlePaymentMethodChange = (event) => {
-    setPaymentMethod(event.target.value);
-  };
-
-  
   const handleNextPage = () => {
     const pages = [
       'personalInfo',
@@ -93,47 +75,198 @@ export default function MembershipForm() {
     if (currentIndex > 0) setCurrentPage(pages[currentIndex - 1]);
   };
 
+  const isFormValid = () => {
+    // Ensure all required fields are filled before allowing to move to next page
+    return (
+      Object.values(formData).every((field) => field !== '') &&
+      gender !== '' &&
+      selectedStatus !== ''
+    );
+  };
+
+  const handleApprovedChange = (event) => {
+    setApproved(event.target.checked);
+    if (event.target.checked) {
+      setNotApproved(false);
+    }
+  };
+
+  const handleNotApprovedChange = (event) => {
+    setNotApproved(event.target.checked);
+    if (event.target.checked) {
+      setApproved(false);
+    }
+  };
+
+  const handleMembershipStatusChange = (event) => {
+    const value = event.target.value;
+    setMembershipStatus(value);
+  };
+
+  const handlePurposeChange = (event) => {
+    const value = event.target.value;
+    setSelectedPurpose(value);
+  };
+
+  const [paymentMethod, setPaymentMethod] = useState('');
+
+  const handlePaymentMethodChange = (event) => {
+    setPaymentMethod(event.target.value);
+  };
+
   return (
-    <>
-
-      <Container maxWidth="md" sx={{ mt: 4, mb: 5 }}>
-        <Paper elevation={3} sx={{ p: 4 }}>
-          <center><Typography variant="h5" gutterBottom>Membership Application Form</Typography></center>
-
-          {currentPage === 'personalInfo' && (
+    <Container maxWidth="md" sx={{ mt: 4, mb: 5 }}>
+      <Paper elevation={3} sx={{ p: 4 }}>
+ <center><Typography variant="h5" gutterBottom>Membership Application Form</Typography></center>
+{currentPage === 'personalInfo' && (
             <>
-              <Typography variant="h6">I. Personal Information</Typography>
-              <Stack spacing={2}>
-                <TextField label="Full Name" fullWidth />
-                <Stack direction="row" spacing={2}>
-                  <TextField type="date" label="Date of Birth" InputLabelProps={{ shrink: true }} fullWidth />
-                  <TextField label="Age" type="number" fullWidth />
-                </Stack>
-                <FormControl fullWidth>
-                  <InputLabel id="gender-label">Gender</InputLabel>
-                  <Select
-                    labelId="gender-label"
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                    label="Gender"
-                  >
-                    <MenuItem value="">
-                      <em>Select Gender</em>
-                    </MenuItem>
-                    <MenuItem value="Male" >Male</MenuItem>
-                    <MenuItem value="Female">Female</MenuItem>
-                    <MenuItem value="Other">Other</MenuItem>
-                  </Select>
-                </FormControl>
-                <FormGroup>
-      <Typography variant="subtitle1">Civil Status</Typography>
-      {['Single', 'Married', 'Widow/er', 'Others'].map((status) => (
+        <center>
+          <Typography variant="h6">I. Personal Information</Typography>
+        </center>
+        <Stack spacing={2}>
+          <TextField
+            label="Full Name"
+            fullWidth
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleChange}
+            required
+          />
+          <Stack direction="row" spacing={2}>
+            <TextField
+              type="date"
+              label="Date of Birth"
+              InputLabelProps={{ shrink: true }}
+              fullWidth
+              name="dateOfBirth"
+              value={formData.dateOfBirth}
+              onChange={handleChange}
+              required
+            />
+            <TextField
+              label="Age"
+              type="number"
+              fullWidth
+              name="age"
+              value={formData.age}
+              onChange={handleChange}
+              required
+            />
+          </Stack>
+
+          {/* Gender Dropdown */}
+          <FormControl fullWidth required>
+            <InputLabel id="gender-label">Gender</InputLabel>
+            <Select
+              labelId="gender-label"
+              value={gender}
+              onChange={handleGenderChange}
+              label="Gender"
+            >
+              <MenuItem value="">
+                <em>Select Gender</em>
+              </MenuItem>
+              <MenuItem value="Male">Male</MenuItem>
+              <MenuItem value="Female">Female</MenuItem>
+              <MenuItem value="Other">Other</MenuItem>
+            </Select>
+          </FormControl>
+
+          {/* Civil Status */}
+          <FormGroup>
+            <Typography variant="subtitle1">Civil Status</Typography>
+            {['Single', 'Married', 'Widow/er', 'Others'].map((status) => (
+              <FormControlLabel
+                key={status}
+                control={
+                  <Checkbox
+                    value={status}
+                    checked={selectedStatus === status}
+                    onChange={handleStatusChange}
+                    color="primary"
+                  />
+                }
+                label={status}
+              />
+            ))}
+            {selectedStatus === 'Others' && (
+              <TextField label="If others, specify" size="small" />
+            )}
+          </FormGroup>
+
+          {/* Home Address */}
+          <TextField
+            label="Home Address"
+            fullWidth
+            name="homeAddress"
+            value={formData.homeAddress}
+            onChange={handleChange}
+            required
+          />
+
+          {/* Contact Information */}
+          <TextField
+            label="Contact Number"
+            fullWidth
+            name="contactNumber"
+            value={formData.contactNumber}
+            onChange={handleChange}
+            required
+          />
+          <TextField
+            label="Email Address"
+            type="email"
+            fullWidth
+            name="emailAddress"
+            value={formData.emailAddress}
+            onChange={handleChange}
+            required
+          />
+          <TextField
+            label="Occupation"
+            fullWidth
+            name="occupation"
+            value={formData.occupation}
+            onChange={handleChange}
+            required
+          />
+          <TextField
+            label="Employer/Business Name"
+            fullWidth
+            name="employerBusiness"
+            value={formData.employerBusiness}
+            onChange={handleChange}
+            required
+          />
+
+          {/* Navigation Buttons */}
+          <Stack direction="row" spacing={2} justifyContent="flex-end">
+            <Button
+              variant="contained"
+              onClick={handleNextPage}
+              disabled={!isFormValid()}
+            >
+              Next
+            </Button>
+          </Stack>
+        </Stack>
+       </>
+          )}
+
+          {currentPage === 'membershipDetails' && (
+  <>
+    <Typography variant="h6">II. Membership Details</Typography>
+
+    {/* Question: Are you a resident of Biliran Province? */}
+    <FormGroup>
+      <Typography>Are you a resident of Biliran Province?</Typography>
+      {['Yes', 'No'].map((status) => (
         <FormControlLabel
           key={status}
           control={
             <Checkbox
               value={status}
-              checked={selectedStatus === status}  
+              checked={selectedStatus === status}
               onChange={handleStatusChange}
               color="primary"
             />
@@ -141,76 +274,43 @@ export default function MembershipForm() {
           label={status}
         />
       ))}
-      {selectedStatus === 'Others' && (
-        <TextField label="If others, specify"  size="small" />
-        
-      )}
     </FormGroup>
 
-                <TextField label="Home Address" fullWidth />
-                <TextField label="Contact Number" fullWidth />
-                <TextField label="Email Address" type="email" fullWidth />
-                <TextField label="Occupation" fullWidth />
-                <TextField label="Employer/Business Name" fullWidth />
-                <Stack direction="row" spacing={2} justifyContent="flex-end">
-                  <Button variant="contained" onClick={handleNextPage}>Next</Button>
-                </Stack>
-              </Stack>
-            </>
-          )}
-
-          {currentPage === 'membershipDetails' && (
-            <>
-              <Typography variant="h6">II. Membership Details</Typography>
-              <FormGroup>
-      <Typography>Are you a resident of Biliran Province?</Typography>
+    {/* Question: Previously a member? */}
+    <FormGroup>
+      <Typography>Previously a member?</Typography>
       {['Yes', 'No'].map((status) => (
         <FormControlLabel
           key={status}
           control={
             <Checkbox
-            value={status}
-            checked={selectedStatus === status}  
-            onChange={handleStatusChange}
+              value={status}
+              checked={membershipStatus === status}
+              onChange={handleMembershipStatusChange}
               color="primary"
+            
             />
           }
           label={status}
         />
       ))}
+
+      {/* Conditional text field when 'Yes' is selected */}
+      {membershipStatus === 'Yes' && (
+        <TextField
+          label="If yes, indicate the period"
+          fullWidth
+          name="membershipPeriod"
+          value={membershipPeriod}
+          onChange={handleChange}
+        
+        />
+      )}
     </FormGroup>
 
+    {/* Question: Purpose of Joining */}
     <FormGroup>
-  <Typography>Previously a member?</Typography>
-
-  {['Yes', 'No'].map((status) => (
-    <FormControlLabel
-      key={status}
-      control={
-        <Checkbox
-          value={status}
-          checked={membershipStatus === status}
-          onChange={handleMembershipStatusChange}
-          color="primary"
-        />
-      }
-      label={status}
-    />
-  ))}
-
-  <div style={{ minHeight: '70px' }}>
-    <TextField
-      label="If yes, indicate the period"
-      fullWidth
-      disabled={membershipStatus !== 'Yes'}
-    />
-  </div>
-</FormGroup>      
-
-<FormGroup>
       <Typography>Purpose of Joining:</Typography>
-
-      {/* Checkbox logic to ensure only one can be checked */}
       {['Savings and Credit', 'Livelihood Assistance', 'Health Benefits'].map((item) => (
         <FormControlLabel
           key={item}
@@ -249,16 +349,18 @@ export default function MembershipForm() {
       />
     </FormGroup>
 
-              <Stack direction="row" spacing={2} justifyContent="space-between">
-                <Button onClick={handleBackPage}>Back</Button>
-                <Button variant="contained" onClick={handleNextPage}>Next</Button>
-              </Stack>
-            </>
-          )}
+    {/* Navigation Buttons */}
+    <Stack direction="row" spacing={2} justifyContent="space-between">
+      <Button onClick={handleBackPage}>Back</Button>
+      <Button variant="contained" onClick={handleNextPage} >Next</Button>
+    </Stack>
+  </>
+)}
+
 
           {currentPage === 'shareCapitalContribution' && (
             <>
-              <Typography variant="h6">III. Share Capital Contribution</Typography>
+              <Typography variant="h6" sx={{mb:1}}>III. Share Capital Contribution</Typography>
               <Stack spacing={2}>
                 <TextField label="Initial Share Capital (₱)" fullWidth />
                 <TextField label="Minimum Required (₱)" fullWidth />
@@ -315,7 +417,7 @@ export default function MembershipForm() {
 
           {currentPage === 'beneficiaryInfo' && (
             <>
-              <Typography variant="h6">IV. Beneficiary Information</Typography>
+              <Typography variant="h6" sx={{mb:2}}>IV. Beneficiary Information</Typography>
               <Stack spacing={2}>
                 <TextField label="Name of Beneficiary" fullWidth />
                 <TextField label="Relationship" fullWidth />
@@ -446,7 +548,7 @@ export default function MembershipForm() {
 
         </Paper>
       </Container>
-    </>
+  
   );
-}  
-      
+ }
+       
