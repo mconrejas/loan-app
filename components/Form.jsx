@@ -87,13 +87,13 @@ export default function LoanApplicationForm() {
 
 
   return (
-    <Container maxWidth="md" sx={{ mt: 5, mb: 5 }}>
+    <Container maxWidth="md" sx={{ mt: 3, mb: 5 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
         <center><Typography variant="h5" gutterBottom>Loan Application Form</Typography></center>
 
         {currentPage === 'personalInfo' && (
           <>
-            <Typography variant="h6">I. Personal Information</Typography>
+            <Typography variant="h6" sx={{mb:2}}>I. Personal Information</Typography>
             <Stack spacing={2}>
               <TextField label="Name of Borrower" fullWidth />
               <TextField label="Membership ID Number" fullWidth />

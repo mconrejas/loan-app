@@ -26,6 +26,11 @@ export default function MembershipForm() {
   const [membershipPeriod, setMembershipPeriod] = useState('');
   const [selectedPurpose, setSelectedPurpose] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState('');
+  const [isResident, setIsResident] = useState('');
+  const [selectedInfo, setSelectedInfo] = useState('');
+const [othersText, setOthersText] = useState('');
+
   const [formData, setFormData] = useState({
     fullName: '',
     dateOfBirth: '',
@@ -37,9 +42,7 @@ export default function MembershipForm() {
     employerBusiness: '',
   });
 
-  const handleStatusChange = (e) => {
-    setSelectedStatus(e.target.value);
-  };
+ 
 
   const handleGenderChange = (e) => {
     setGender(e.target.value);
@@ -108,21 +111,50 @@ export default function MembershipForm() {
     setSelectedPurpose(value);
   };
 
-  const [paymentMethod, setPaymentMethod] = useState('');
+  
 
   const handlePaymentMethodChange = (event) => {
     setPaymentMethod(event.target.value);
   };
 
+  
+
+const handleResidentChange = (event) => {
+  setIsResident(event.target.value);
+};
+
+
+// Handle change for Civil Status
+const handleOthersChange = (event) => {
+  setSelectedInfo(event.target.value);
+  if (event.target.value !== 'Others') {
+    setOthersText(''); // Clear 'Others' text when a different status is selected
+  }
+};
+
+// Handle change for "Others" text field
+const handleOthersTextChange = (event) => {
+  setOthersText(event.target.value);
+};
+
+// Form validation
+const isInfoValid = () => {
   return (
-    <Container maxWidth="md" sx={{ mt: 4, mb: 5 }}>
+    selectedInfo !== '' && 
+    (selectedInfo !== 'Others' || othersText.trim() !== '')
+  );
+};
+
+const isNextButtonEnabled = selectedPurpose !== 'Others' || (selectedPurpose === 'Others' && othersText.trim() !== '');
+  
+  return (
+    <Container maxWidth="md" sx={{ mt: 3, mb: 5 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
  <center><Typography variant="h5" gutterBottom>Membership Application Form</Typography></center>
 {currentPage === 'personalInfo' && (
             <>
-        <center>
-          <Typography variant="h6">I. Personal Information</Typography>
-        </center>
+      
+          <Typography variant="h6" sx={{mb:1}}>I. Personal Information</Typography>
         <Stack spacing={2}>
           <TextField
             label="Full Name"
@@ -130,7 +162,7 @@ export default function MembershipForm() {
             name="fullName"
             value={formData.fullName}
             onChange={handleChange}
-            required
+            
           />
           <Stack direction="row" spacing={2}>
             <TextField
@@ -176,23 +208,32 @@ export default function MembershipForm() {
           <FormGroup>
             <Typography variant="subtitle1">Civil Status</Typography>
             {['Single', 'Married', 'Widow/er', 'Others'].map((status) => (
-              <FormControlLabel
-                key={status}
-                control={
-                  <Checkbox
-                    value={status}
-                    checked={selectedStatus === status}
-                    onChange={handleStatusChange}
-                    color="primary"
-                  />
-                }
-                label={status}
+          <FormControlLabel
+            key={status}
+            control={
+              <Checkbox
+                value={status}
+                checked={selectedInfo.includes(status)}
+                onChange={handleOthersChange}
+                color="primary"
               />
-            ))}
-            {selectedStatus === 'Others' && (
-              <TextField label="If others, specify" size="small" />
-            )}
-          </FormGroup>
+            }
+            label={status}
+          />
+        ))}
+
+        {/* TextField for 'Others' status */}
+        {selectedInfo.includes('Others') && (
+          <TextField
+            label="If others, specify"
+            size="small"
+            value={othersText}
+            onChange={handleOthersTextChange}
+            fullWidth
+            required
+          />
+        )}
+      </FormGroup>
 
           {/* Home Address */}
           <TextField
@@ -244,7 +285,7 @@ export default function MembershipForm() {
             <Button
               variant="contained"
               onClick={handleNextPage}
-              disabled={!isFormValid()}
+              disabled={!isInfoValid()}
             >
               Next
             </Button>
@@ -254,107 +295,115 @@ export default function MembershipForm() {
           )}
 
           {currentPage === 'membershipDetails' && (
-  <>
-    <Typography variant="h6">II. Membership Details</Typography>
+ <>
+ <Typography variant="h6">II. Membership Details</Typography>
 
-    {/* Question: Are you a resident of Biliran Province? */}
-    <FormGroup>
-      <Typography>Are you a resident of Biliran Province?</Typography>
-      {['Yes', 'No'].map((status) => (
+ {/* Question: Are you a resident of Biliran Province? */}
+ <FormGroup>
+   <Typography>Are you a resident of Biliran Province?</Typography>
+   {['Yes', 'No'].map((status) => (
+     <FormControlLabel
+       key={status}
+       control={
+         <Checkbox
+           value={status}
+           checked={isResident === status}
+           onChange={handleResidentChange}
+           color="primary"
+         />
+       }
+       label={status}
+     />
+   ))}
+ </FormGroup>
+
+ {/* Question: Previously a member? */}
+ <FormGroup>
+        <Typography>Previously a member?</Typography>
+        {['Yes', 'No'].map((status) => (
+          <FormControlLabel
+            key={status}
+            control={
+              <Checkbox
+                value={status}
+                checked={membershipStatus === status}
+                onChange={handleMembershipStatusChange}
+                color="primary"
+              />
+            }
+            label={status}
+          />
+        ))}
+
+        {/* Conditional text field when 'Yes' is selected */}
+        {membershipStatus === 'Yes' && (
+          <TextField
+            label="If yes, indicate the period"
+            fullWidth
+            name="membershipPeriod"
+            value={membershipPeriod}
+            onChange={(e) => setMembershipPeriod(e.target.value)}
+          />
+        )}
+      </FormGroup>
+
+
+ {/* Question: Purpose of Joining */}
+ <FormGroup>
+        <Typography sx={{mt:1}}>Purpose of Joining:</Typography>
+        {['Savings and Credit', 'Livelihood Assistance', 'Health Benefits'].map((item) => (
+          <FormControlLabel
+            key={item}
+            control={
+              <Checkbox
+                value={item}
+                checked={selectedPurpose === item}
+                onChange={handlePurposeChange}
+                color="primary"
+              />
+            }
+            label={item}
+          />
+        ))}
+
+        {/* 'Others' option with a text field */}
         <FormControlLabel
-          key={status}
           control={
             <Checkbox
-              value={status}
-              checked={selectedStatus === status}
-              onChange={handleStatusChange}
-              color="primary"
-            />
-          }
-          label={status}
-        />
-      ))}
-    </FormGroup>
-
-    {/* Question: Previously a member? */}
-    <FormGroup>
-      <Typography>Previously a member?</Typography>
-      {['Yes', 'No'].map((status) => (
-        <FormControlLabel
-          key={status}
-          control={
-            <Checkbox
-              value={status}
-              checked={membershipStatus === status}
-              onChange={handleMembershipStatusChange}
-              color="primary"
-            
-            />
-          }
-          label={status}
-        />
-      ))}
-
-      {/* Conditional text field when 'Yes' is selected */}
-      {membershipStatus === 'Yes' && (
-        <TextField
-          label="If yes, indicate the period"
-          fullWidth
-          name="membershipPeriod"
-          value={membershipPeriod}
-          onChange={handleChange}
-        
-        />
-      )}
-    </FormGroup>
-
-    {/* Question: Purpose of Joining */}
-    <FormGroup>
-      <Typography>Purpose of Joining:</Typography>
-      {['Savings and Credit', 'Livelihood Assistance', 'Health Benefits'].map((item) => (
-        <FormControlLabel
-          key={item}
-          control={
-            <Checkbox
-              value={item}
-              checked={selectedPurpose === item}
+              value="Others"
+              checked={selectedPurpose === 'Others'}
               onChange={handlePurposeChange}
               color="primary"
             />
           }
-          label={item}
+          label={
+            <Stack direction="row" alignItems="center">
+              <span>Others:</span>
+              <TextField
+                size="small"
+                disabled={selectedPurpose !== 'Others'}
+                value={othersText}
+                onChange={handleOthersTextChange}
+                sx={{ ml: 1 }}
+              />
+            </Stack>
+          }
         />
-      ))}
+      </FormGroup>
 
-      {/* 'Others' option with a text field */}
-      <FormControlLabel
-        control={
-          <Checkbox
-            value="Others"
-            checked={selectedPurpose === 'Others'}
-            onChange={handlePurposeChange}
-            color="primary"
-          />
-        }
-        label={
-          <Stack direction="row" alignItems="center">
-            <span>Others:</span>
-            <TextField
-              size="small"
-              disabled={selectedPurpose !== 'Others'}
-              sx={{ ml: 1 }}
-            />
-          </Stack>
-        }
-      />
-    </FormGroup>
 
-    {/* Navigation Buttons */}
-    <Stack direction="row" spacing={2} justifyContent="space-between">
-      <Button onClick={handleBackPage}>Back</Button>
-      <Button variant="contained" onClick={handleNextPage} >Next</Button>
-    </Stack>
-  </>
+ {/* Navigation Buttons */}
+ <Stack direction="row" spacing={2} justifyContent="space-between">
+   <Button onClick={handleBackPage}>Back</Button>
+   <Button
+     variant="contained"
+     onClick={handleNextPage}
+     disabled={!isInfoValid() || !isResident || !selectedPurpose || !membershipStatus || (membershipStatus === 'Yes' && !membershipPeriod)}
+   >
+     Next
+   </Button>
+ </Stack>
+</>
 )}
 
 
