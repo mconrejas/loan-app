@@ -29,6 +29,9 @@ export default function MembershipForm() {
   const [isResident, setIsResident] = useState('');
   const [selectedInfo, setSelectedInfo] = useState('');
   const [othersText, setOthersText] = useState('');
+  const [othersTextPersonal, setOthersTextPersonal] = useState(''); // For page 1
+  const [othersTextMembership, setOthersTextMembership] = useState(''); // For page 2
+  const [othersTextShareCapital, setOthersTextShareCapital] = useState(''); // For page 3
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -81,7 +84,6 @@ export default function MembershipForm() {
   };
 
   const isPersonalInfoValid = () => {
- 
     return (
       formData.fullName !== '' &&
       formData.dateOfBirth !== '' &&
@@ -106,22 +108,22 @@ export default function MembershipForm() {
 
   const isNextButtonEnabled = () => {
     if (currentPage === 'personalInfo') {
-      return isPersonalInfoValid() && (selectedInfo !== 'Others' || othersText.trim() !== '');
+      return isPersonalInfoValid() && (selectedInfo !== 'Others' || othersTextPersonal.trim() !== '');
     }
 
     if (currentPage === 'membershipDetails') {
-     return (
-       isMembershipDetailsValid() && (selectedPurpose !== 'Others' ||  othersText.trim() !== ''));
-    
-    }  
-    if (currentPage === 'shareCapitalContribution') {
-       return (
-        isShareCapitalValid() &&
-        (paymentMethod !== 'Others' || (paymentMethod === 'Others' && othersText.trim() !== ''))
+      return (
+        isMembershipDetailsValid() && (selectedPurpose !== 'Others' || othersTextMembership.trim() !== '')
       );
-    }   
-  };
+    }
 
+    if (currentPage === 'shareCapitalContribution') {
+      return (
+        isShareCapitalValid() &&
+        (paymentMethod !== 'Others' || (paymentMethod === 'Others' && othersTextShareCapital.trim() !== ''))
+      );
+    }
+  };
 
   const isShareCapitalValid = () => {
     return (
@@ -130,7 +132,7 @@ export default function MembershipForm() {
       (paymentMethod !== '' || (paymentMethod === 'Other' && othersText.trim() !== ''))
     );
   };
-  
+
   const isBeneficiaryInfoValid = () => {
     return (
       formData.beneficiaryName !== '' &&
@@ -138,7 +140,7 @@ export default function MembershipForm() {
       formData.beneficiaryContact !== ''
     );
   };
-  
+
   const handleApprovedChange = (event) => {
     setApproved(event.target.checked);
     if (event.target.checked) {
@@ -170,15 +172,30 @@ export default function MembershipForm() {
     setIsResident(event.target.value);
   };
 
-  const handleOthersChange = (event) => {
+  const handleOthersChangePersonal = (event) => {
     setSelectedInfo(event.target.value);
     if (event.target.value !== 'Others') {
-      setOthersText('');
+      setOthersTextPersonal('');
     }
   };
 
-  const handleOthersTextChange = (event) => {
-    setOthersText(event.target.value);
+  const handleOthersTextChangePersonal = (event) => {
+    setOthersTextPersonal(event.target.value);
+  };
+
+  const handleOthersChangeMembership = (event) => {
+    setSelectedPurpose(event.target.value);
+    if (event.target.value !== 'Others') {
+      setOthersTextMembership('');
+    }
+  };
+
+  const handleOthersTextChangeMembership = (event) => {
+    setOthersTextMembership(event.target.value);
+  };
+
+  const handleOthersTextShareCapitalChange = (event) => {
+    setOthersTextShareCapital(event.target.value);
   };
 
   return (
@@ -252,7 +269,7 @@ export default function MembershipForm() {
                       <Checkbox
                         value={status}
                         checked={selectedInfo.includes(status)}
-                        onChange={handleOthersChange}
+                        onChange={handleOthersChangePersonal}
                         color="primary"
                       />
                     }
@@ -265,8 +282,8 @@ export default function MembershipForm() {
                   <TextField
                     label="If others, specify"
                     size="small"
-                    value={othersText}
-                    onChange={handleOthersTextChange}
+                    value={othersTextPersonal}
+                    onChange={handleOthersTextChangePersonal}
                     fullWidth
                     required
                   />
@@ -407,6 +424,7 @@ export default function MembershipForm() {
               <Checkbox
                 value="Others"
                 checked={selectedPurpose === 'Others'}
+
                 onChange={handlePurposeChange}
                 color="primary"
               />
