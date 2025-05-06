@@ -29,9 +29,9 @@ export default function MembershipForm() {
   const [isResident, setIsResident] = useState('');
   const [selectedInfo, setSelectedInfo] = useState('');
   const [othersText, setOthersText] = useState('');
-  const [othersTextPersonal, setOthersTextPersonal] = useState(''); // For page 1
-  const [othersTextMembership, setOthersTextMembership] = useState(''); // For page 2
-  const [othersTextShareCapital, setOthersTextShareCapital] = useState(''); // For page 3
+  const [othersTextPersonal, setOthersTextPersonal] = useState('');
+  const [othersTextMembership, setOthersTextMembership] = useState('');
+  const [othersTextShareCapital, setOthersTextShareCapital] = useState('');
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -42,11 +42,11 @@ export default function MembershipForm() {
     emailAddress: '',
     occupation: '',
     employerBusiness: '',
-    initialShareCapital: '', 
-    minimumRequired: '', 
-    beneficiaryName: '', 
+    initialShareCapital: '',
+    minimumRequired: '',
+    beneficiaryName: '',
     relationship: '',
-    beneficiaryContact:'',
+    beneficiaryContact: '',
   });
 
   const handleGenderChange = (e) => {
@@ -123,6 +123,8 @@ export default function MembershipForm() {
         (paymentMethod !== 'Others' || (paymentMethod === 'Others' && othersTextShareCapital.trim() !== ''))
       );
     }
+
+    return false;
   };
 
   const isShareCapitalValid = () => {
@@ -132,6 +134,20 @@ export default function MembershipForm() {
       (paymentMethod !== '' || (paymentMethod === 'Other' && othersText.trim() !== ''))
     );
   };
+
+
+
+  const handlePurposeChange = (event) => {
+    const { value } = event.target;
+    setSelectedPurpose(value);
+  
+    if (value !== 'Others') {
+      setOthersText(''); 
+    } else {
+      setOthersTextMembership(''); 
+    }
+  };
+  
 
   const isBeneficiaryInfoValid = () => {
     return (
@@ -156,17 +172,10 @@ export default function MembershipForm() {
   };
 
   const handleMembershipStatusChange = (event) => {
-    const value = event.target.value;
-    setMembershipStatus(value);
+    setMembershipStatus(event.target.value);
   };
 
-  const handlePurposeChange = (event) => {
-    const value = event.target.value;
-    setSelectedPurpose(value);
-    if (value !== 'Others') {
-      setOthersText(''); 
-    }
-  };
+  
 
   const handleResidentChange = (event) => {
     setIsResident(event.target.value);
@@ -183,21 +192,7 @@ export default function MembershipForm() {
     setOthersTextPersonal(event.target.value);
   };
 
-  const handleOthersChangeMembership = (event) => {
-    setSelectedPurpose(event.target.value);
-    if (event.target.value !== 'Others') {
-      setOthersTextMembership('');
-    }
-  };
-
-  const handleOthersTextChangeMembership = (event) => {
-    setOthersTextMembership(event.target.value);
-  };
-
-  const handleOthersTextShareCapitalChange = (event) => {
-    setOthersTextShareCapital(event.target.value);
-  };
-
+ 
   return (
     <Container maxWidth="md" sx={{ mt: 3, mb: 5 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
@@ -206,6 +201,7 @@ export default function MembershipForm() {
             Membership Application Form
           </Typography>
         </center>
+
         {currentPage === 'personalInfo' && (
           <>
             <Typography variant="h6" sx={{ mb: 1 }}>
@@ -349,118 +345,116 @@ export default function MembershipForm() {
           </>
         )}
 
+        
 {currentPage === 'membershipDetails' && (
- <>
- <Typography variant="h6">II. Membership Details</Typography>
- <FormGroup>
-          <Typography>Are you a resident of Biliran Province?</Typography>
-          {['Yes', 'No'].map((status) => (
-            <FormControlLabel
-              key={status}
-              control={
-                <Checkbox
-                  value={status}
-                  checked={isResident === status}
-                  onChange={handleResidentChange}
-                  color="primary"
-                />
-              }
-              label={status}
+  <>
+    <Typography variant="h6">II. Membership Details</Typography>
+    <FormGroup>
+      <Typography>Are you a resident of Biliran Province?</Typography>
+      {['Yes', 'No'].map((status) => (
+        <FormControlLabel
+          key={status}
+          control={
+            <Checkbox
+              value={status}
+              checked={isResident === status}
+              onChange={handleResidentChange}
+              color="primary"
             />
-          ))}
-        </FormGroup>
+          }
+          label={status}
+        />
+      ))}
+    </FormGroup>
 
-        {/* Question: Previously a member? */}
-        <FormGroup>
-          <Typography>Previously a member?</Typography>
-          {['Yes', 'No'].map((status) => (
-            <FormControlLabel
-              key={status}
-              control={
-                <Checkbox
-                  value={status}
-                  checked={membershipStatus === status}
-                  onChange={handleMembershipStatusChange}
-                  color="primary"
-                />
-              }
-              label={status}
+    {/* Previously a member */}
+    <FormGroup>
+      <Typography>Previously a member?</Typography>
+      {['Yes', 'No'].map((status) => (
+        <FormControlLabel
+          key={status}
+          control={
+            <Checkbox
+              value={status}
+              checked={membershipStatus === status}
+              onChange={handleMembershipStatusChange}
+              color="primary"
             />
-          ))}
+          }
+          label={status}
+        />
+      ))}
 
-          {/* Conditional text field when 'Yes' is selected */}
-          {membershipStatus === 'Yes' && (
-            <TextField
-              label="If yes, indicate the period"
-              fullWidth
-              name="membershipPeriod"
-              value={membershipPeriod}
-              onChange={(e) => setMembershipPeriod(e.target.value)}
+      {/* Conditional text field when 'Yes' is selected */}
+      {membershipStatus === 'Yes' && (
+        <TextField
+          label="If yes, indicate the period"
+          fullWidth
+          name="membershipPeriod"
+          value={membershipPeriod}
+          onChange={(e) => setMembershipPeriod(e.target.value)}
+        />
+      )}
+    </FormGroup>
+
+    {/* Purpose of Joining */}
+    <FormGroup>
+      <Typography sx={{ mt: 1 }}>Purpose of Joining:</Typography>
+      {['Savings and Credit', 'Livelihood Assistance', 'Health Benefits'].map((item) => (
+        <FormControlLabel
+          key={item}
+          control={
+            <Checkbox
+              value={item}
+              checked={selectedPurpose === item}
+              onChange={handlePurposeChange}
+              color="primary"
             />
-          )}
-        </FormGroup>
+          }
+          label={item}
+        />
+      ))}
 
-        {/* Purpose of Joining */}
-        <FormGroup>
-          <Typography sx={{ mt: 1 }}>Purpose of Joining:</Typography>
-          {['Savings and Credit', 'Livelihood Assistance', 'Health Benefits'].map((item) => (
-            <FormControlLabel
-              key={item}
-              control={
-                <Checkbox
-                  value={item}
-                  checked={selectedPurpose === item}
-                  onChange={handlePurposeChange}
-                  color="primary"
-                />
-              }
-              label={item}
-            />
-          ))}
-          
-          {/* 'Others' option with a text field */}
-          <FormControlLabel
-            control={
-              <Checkbox
-                value="Others"
-                checked={selectedPurpose === 'Others'}
-
-                onChange={handlePurposeChange}
-                color="primary"
-              />
-            }
-            label={
-              <Stack direction="row" alignItems="center">
-                <span>Others:</span>
-                <TextField
-                  size="small"
-                  disabled={selectedPurpose !== 'Others'}
-                  value={othersText}
-                  onChange={handleOthersTextChange}
-                  sx={{ ml: 1 }}
-                />
-              </Stack>
-            }
+      {/* 'Others' option with a text field */}
+      <FormControlLabel
+        control={
+          <Checkbox
+            value="Others"
+            checked={selectedPurpose === 'Others'}
+            onChange={handlePurposeChange}
+            color="primary"
           />
-        </FormGroup>
+        }
+        label={
+          <Stack direction="row" alignItems="center">
+            <span>Others:</span>
+            <TextField
+              size="small"
+              disabled={selectedPurpose !== 'Others'}
+              value={othersTextMembership}
+              onChange={(e) => setOthersTextMembership(e.target.value)}
+              sx={{ ml: 1 }}
+            />
+          </Stack>
+        }
+      />
+    </FormGroup>
 
-        {/* Navigation Buttons */}
-        <Stack direction="row" spacing={2} justifyContent="space-between">
-          <Button
-           onClick={handleBackPage}
-          >
-            Back
-          </Button>
-          <Button
-            variant="contained"
-            onClick={handleNextPage}
-            disabled={!isNextButtonEnabled()}
-          >
-            Next
-          </Button>
-        </Stack>
-        </>
+    {/* Navigation Buttons */}
+    <Stack direction="row" spacing={2} justifyContent="space-between">
+      <Button onClick={handleBackPage}>Back</Button>
+      <Button
+        variant="contained"
+        onClick={handleNextPage}
+        disabled={!isNextButtonEnabled()}
+      >
+        Next
+      </Button>
+    </Stack>
+  </>
 )}
+
+
 
 {currentPage === 'shareCapitalContribution' && (
   <>
