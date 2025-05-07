@@ -43,16 +43,20 @@ export default function Navbar() {
   const router = useRouter();
 
   const navigateToMembership = () => {
-    handleClose(); // Close menu first
-    router.push('/Member/Membership'); // ✅ Make sure this route exists under /app/Member/Membership/page.jsx
+    handleClose();
+    router.push('/Member/Membership'); 
   };
 
+  const nav = () => {
+    handleClose();
+    router.push('/'); 
+  };
   return (
     <>
       <HideOnScroll>
         <AppBar position="fixed" color="primary">
           <Toolbar>
-            <IconButton size="large" edge="start" color="inherit" aria-label="logo">
+            <IconButton size="large" edge="start" color="inherit" aria-label="logo" onClick={nav}>
               <AccountCircleIcon />
             </IconButton>
 

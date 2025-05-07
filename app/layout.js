@@ -1,18 +1,14 @@
-import Navbar from '../components/Navbar'
-// import Member from '../components/Membership';  
-// import Loan from '../components/Form'
+import Navbar from '../components/Navbar'; 
 
-
-export default function RootLayout() {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        {/* Render Navbar */}
         <Navbar />
-        {/* <Member /> */}
-        {/* <Loan /> */}
-    
+        {/* Render the child components of this layout */}
+        {children}
       </body>
-   
     </html>
   );
 }
