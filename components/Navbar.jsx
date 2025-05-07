@@ -1,5 +1,5 @@
 'use client';
-
+import Link from 'next/link'; // ✅ Fixed here
 import React, { useState } from 'react';
 import {
   Button,
@@ -78,7 +78,9 @@ export default function Navbar() {
                 }}
               >
                 <MenuItem onClick={handleClose} sx={{ fontSize: '0.75rem' }}>
+                <Link href ='/Member'>
                   Membership Application
+                  </Link>
                 </MenuItem>
                 <MenuItem onClick={handleClose} sx={{ fontSize: '0.75rem' }}>
                   Loan Application
