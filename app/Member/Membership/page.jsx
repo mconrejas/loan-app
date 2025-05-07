@@ -17,7 +17,7 @@ import {
   Paper,
 } from '@mui/material';
 
-export default function MembershipForm() {
+export default function Membership() {
   const [currentPage, setCurrentPage] = useState('personalInfo');
   const [gender, setGender] = useState('');
   const [approved, setApproved] = useState(false);
