@@ -1,6 +1,7 @@
 'use client';
-import Link from 'next/link'; // ✅ Fixed here
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation'; // ✅ Correct for App Router
+
 import {
   Button,
   Menu,
@@ -39,6 +40,13 @@ export default function Navbar() {
     setAnchorEl(null);
   };
 
+  const router = useRouter();
+
+  const navigateToMembership = () => {
+    handleClose(); // Close menu first
+    router.push('/Member/Membership'); // ✅ Make sure this route exists under /app/Member/Membership/page.jsx
+  };
+
   return (
     <>
       <HideOnScroll>
@@ -53,7 +61,6 @@ export default function Navbar() {
             </Typography>
 
             <Stack direction="row" spacing={2}>
-              {/* Dashboard Dropdown Button */}
               <Button
                 color="inherit"
                 startIcon={<DashboardIcon />}
@@ -63,7 +70,6 @@ export default function Navbar() {
                 Dashboard
               </Button>
 
-              {/* Dashboard Dropdown Menu */}
               <Menu
                 anchorEl={anchorEl}
                 open={open}
@@ -77,17 +83,14 @@ export default function Navbar() {
                   horizontal: 'right',
                 }}
               >
-                <MenuItem onClick={handleClose} sx={{ fontSize: '0.75rem' }}>
-                <Link href ='/Member'>
+                <MenuItem onClick={navigateToMembership} sx={{ fontSize: '0.75rem' }}>
                   Membership Application
-                  </Link>
                 </MenuItem>
                 <MenuItem onClick={handleClose} sx={{ fontSize: '0.75rem' }}>
                   Loan Application
                 </MenuItem>
               </Menu>
 
-              {/* Logout Button */}
               <Button
                 color="inherit"
                 startIcon={<LogoutIcon />}
@@ -100,8 +103,7 @@ export default function Navbar() {
         </AppBar>
       </HideOnScroll>
 
-      {/* Spacer to push content below the fixed AppBar */}
-      <Toolbar />
+      <Toolbar /> {/* Spacer */}
     </>
   );
 }
