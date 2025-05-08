@@ -43,8 +43,18 @@ export default function Navbar() {
   const router = useRouter();
 
   const navigateToMembership = () => {
-    handleClose(); 
-    router.push('/Member/Membership');
+    handleClose();
+    router.push('/Member/Membership'); 
+  };
+
+  const nav = () => {
+    handleClose();
+    router.push('/'); 
+  };
+
+  const navigateToLoanApplication = () => {
+    handleClose();
+    router.push('/LoanApplication'); 
   };
 
   return (
@@ -52,7 +62,7 @@ export default function Navbar() {
       <HideOnScroll>
         <AppBar position="fixed" color="primary">
           <Toolbar>
-            <IconButton size="large" edge="start" color="inherit" aria-label="logo">
+            <IconButton size="large" edge="start" color="inherit" aria-label="logo" onClick={nav}>
               <AccountCircleIcon />
             </IconButton>
 
@@ -86,7 +96,7 @@ export default function Navbar() {
                 <MenuItem onClick={navigateToMembership} sx={{ fontSize: '0.75rem' }}>
                   Membership Application
                 </MenuItem>
-                <MenuItem onClick={handleClose} sx={{ fontSize: '0.75rem' }}>
+                <MenuItem onClick={navigateToLoanApplication} sx={{ fontSize: '0.75rem' }}>
                   Loan Application
                 </MenuItem>
               </Menu>

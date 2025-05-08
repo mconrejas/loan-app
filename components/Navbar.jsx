@@ -51,6 +51,12 @@ export default function Navbar() {
     handleClose();
     router.push('/'); 
   };
+
+  const navigateToLoanApplication = () => {
+    handleClose();
+    router.push('/LoanApplication'); 
+  };
+
   return (
     <>
       <HideOnScroll>
@@ -90,7 +96,7 @@ export default function Navbar() {
                 <MenuItem onClick={navigateToMembership} sx={{ fontSize: '0.75rem' }}>
                   Membership Application
                 </MenuItem>
-                <MenuItem onClick={handleClose} sx={{ fontSize: '0.75rem' }}>
+                <MenuItem onClick={navigateToLoanApplication} sx={{ fontSize: '0.75rem' }}>
                   Loan Application
                 </MenuItem>
               </Menu>
