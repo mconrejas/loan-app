@@ -4,20 +4,17 @@ import { useRouter } from 'next/navigation';
 
 import {
   Button,
-  Menu,
-  MenuItem,
   Typography,
-  Stack,
+  Box,
   AppBar,
   Toolbar,
   IconButton,
   useScrollTrigger,
-  Slide,
-  Box
+  Slide
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'; // Admin Icon
-import PersonIcon from '@mui/icons-material/Person'; // User Icon
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import PersonIcon from '@mui/icons-material/Person';
 
 function HideOnScroll({ children }) {
   const trigger = useScrollTrigger();
@@ -57,31 +54,29 @@ export default function Navbar() {
               <AccountCircleIcon />
             </IconButton>
 
-            {/* Title "My Application" */}
             <Typography
               variant="h6"
               sx={{
                 flexGrow: 0,
-                fontWeight: '300', // Thin font style
-                fontFamily: "'Arial', sans-serif", // Clean font
-                fontSize: '1.2rem', // Font size for "My Application"
+                fontWeight: '300',
+                fontFamily: "'Arial', sans-serif",
+                fontSize: '1.2rem',
                 letterSpacing: '0.5px',
               }}
             >
               My Application
             </Typography>
 
-            {/* Centered Title "BILIRAN PROVINCE LIFE CARE MINISTRY COOPERATIVE" */}
             <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', mr: 10 }}>
               <Typography
-                variant="h6" // Same font size for consistency
+                variant="h6"
                 sx={{
-                  fontWeight: '300', // Thin font style for consistency
-                  fontFamily: "'Arial', sans-serif", // Same font family as "My Application"
+                  fontWeight: '300',
+                  fontFamily: "'Arial', sans-serif",
                   textAlign: 'center',
-                  fontSize: '1rem', // Adjusted smaller size for center title
-                  letterSpacing: '0.5px', // Optional: Adds spacing between letters
-                  color: '#ffffff', // White color for visibility
+                  fontSize: '1rem',
+                  letterSpacing: '0.5px',
+                  color: '#ffffff',
                 }}
               >
                 BILIRAN PROVINCE LIFE CARE MINISTRY COOPERATIVE
@@ -91,52 +86,49 @@ export default function Navbar() {
         </AppBar>
       </HideOnScroll>
 
-      <Toolbar /> {/* Spacer */}
+      <Toolbar />
 
-      {/* Upper middle buttons, positioned lower */}
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           position: 'absolute',
-          top: '40%', // Lowered to 40%
+          top: '40%',
           left: '50%',
-          transform: 'translateX(-50%)', // Center horizontally
+          transform: 'translateX(-50%)',
         }}
       >
-        {/* ADMIN Button with Icon */}
         <Button
           onClick={admin}
           color="primary"
           variant="contained"
-          startIcon={<AdminPanelSettingsIcon sx={{ fontSize: '2rem' }} />} // Bigger Admin icon
+          startIcon={<AdminPanelSettingsIcon sx={{ fontSize: '2rem' }} />}
           sx={{
-            marginBottom: 3, // Added more space between buttons
-            fontSize: '1rem', // Smaller button text
-            padding: '6px 12px', // Smaller padding for smaller button
-            minWidth: '120px', // Optional: set a minimum width for the buttons
-            height: '40px', // Optional: set a fixed height for the buttons
+            marginBottom: 3,
+            fontSize: '1rem',
+            padding: '6px 12px',
+            minWidth: '120px',
+            height: '40px',
           }}
         >
           ADMIN
         </Button>
 
-        {/* USER Button with Icon */}
         <Button
           onClick={nav}
           sx={{
-            backgroundColor: '#4caf50', // Green color
+            backgroundColor: '#4caf50',
             color: 'white',
-            fontSize: '1rem', // Smaller button text
-            padding: '6px 12px', // Smaller padding for smaller button
-            minWidth: '120px', // Optional: set a minimum width for the buttons
-            height: '40px', // Optional: set a fixed height for the buttons
+            fontSize: '1rem',
+            padding: '6px 12px',
+            minWidth: '120px',
+            height: '40px',
             '&:hover': {
-              backgroundColor: '#388e3c', // Darker green on hover
+              backgroundColor: '#388e3c',
             },
           }}
-          startIcon={<PersonIcon sx={{ fontSize: '2rem' }} />} // Bigger User icon
+          startIcon={<PersonIcon sx={{ fontSize: '2rem' }} />}
         >
           USER
         </Button>

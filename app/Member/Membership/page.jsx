@@ -289,7 +289,6 @@ export default function Membership() {
                 />
               </Stack>
 
-              {/* Gender Dropdown */}
               <FormControl fullWidth required>
                 <InputLabel id="gender-label">Gender</InputLabel>
                 <Select
@@ -325,7 +324,6 @@ export default function Membership() {
     />
   ))}
 
-  {/* TextField for 'Others' status */}
   {selectedInfo.includes('Others') && (
     <TextField
       label="If others, specify"
@@ -339,7 +337,6 @@ export default function Membership() {
 </FormGroup>
 
 
-              {/* Home Address */}
               <TextField
                 label="Home Address"
                 fullWidth
@@ -349,7 +346,6 @@ export default function Membership() {
                 required
               />
 
-              {/* Contact Information */}
               <TextField
                 label="Contact Number"
                 fullWidth
@@ -384,7 +380,6 @@ export default function Membership() {
                 required
               />
 
-              {/* Navigation Buttons */}
               <Stack direction="row" spacing={2} justifyContent="flex-end">
                 <Button
                   variant="contained"
@@ -420,7 +415,6 @@ export default function Membership() {
       ))}
     </FormGroup>
 
-    {/* Previously a member */}
     <FormGroup>
       <Typography>Previously a member?</Typography>
       {['Yes', 'No'].map((status) => (
@@ -438,7 +432,6 @@ export default function Membership() {
         />
       ))}
 
-      {/* Conditional text field when 'Yes' is selected */}
       {membershipStatus === 'Yes' && (
         <TextField
           label="If yes, indicate the period"
@@ -450,7 +443,6 @@ export default function Membership() {
       )}
     </FormGroup>
 
-    {/* Purpose of Joining */}
     <FormGroup>
       <Typography sx={{ mt: 1 }}>Purpose of Joining:</Typography>
       {['Savings and Credit', 'Livelihood Assistance', 'Health Benefits'].map((item) => (
@@ -468,7 +460,6 @@ export default function Membership() {
         />
       ))}
 
-      {/* 'Others' option with a text field */}
       <FormControlLabel
         control={
           <Checkbox
@@ -493,7 +484,6 @@ export default function Membership() {
       />
     </FormGroup>
 
-    {/* Navigation Buttons */}
     <Stack direction="row" spacing={2} justifyContent="space-between">
       <Button onClick={handleBackPage}>Back</Button>
       <Button
@@ -514,7 +504,6 @@ export default function Membership() {
       III. Share Capital Contribution
     </Typography>
     <Stack spacing={2}>
-      {/* Initial Share Capital Field */}
       <TextField
         label="Initial Share Capital (₱)"
         fullWidth
@@ -523,7 +512,6 @@ export default function Membership() {
         required
       />
      
-      {/* Minimum Required Field */}
       <TextField
         label="Minimum Required (₱)"
         fullWidth
@@ -532,7 +520,6 @@ export default function Membership() {
         required
       />
       
-      {/* Payment Method */}
       <FormGroup>
         <Typography>Payment Method:</Typography>
         {['Cash', 'Check', 'Bank Transfer'].map((method) => (
@@ -550,7 +537,6 @@ export default function Membership() {
           />
         ))}
 
-        {/* 'Other' checkbox with a text field */}
         <FormControlLabel
           control={
             <Checkbox
@@ -597,7 +583,6 @@ export default function Membership() {
       IV. Beneficiary Information
     </Typography>
     <Stack spacing={2}>
-      {/* Name of Beneficiary */}
       <TextField
         label="Name of Beneficiary"
         fullWidth
@@ -606,7 +591,6 @@ export default function Membership() {
         required
       />
       
-      {/* Relationship */}
       <TextField
         label="Relationship"
         fullWidth
@@ -615,7 +599,6 @@ export default function Membership() {
         required
       />
       
-      {/* Contact Number of Beneficiary */}
       <TextField
         label="Contact Number of Beneficiary"
         fullWidth
@@ -647,7 +630,7 @@ export default function Membership() {
       responsibilities of membership, including participation in the cooperative's programs and activities.
     </Typography>
     <Stack spacing={2}>
-      {/* Signature Field */}
+
       <TextField
         type="file"
         label="Signature"
@@ -657,17 +640,14 @@ export default function Membership() {
           shrink: true,
         }}
         onChange={(e) => {
-          const file = e.target.files[0]; // Get the selected file
+          const file = e.target.files[0]; 
           if (file) {
-            setFormData({ ...formData, signature: file }); // Store the file in the form data
+            setFormData({ ...formData, signature: file }); 
           }
         }}
-        // Helper text will show the file name if selected
-        helperText={formData.signature ? formData.signature.name : ''} // Show the file name if available
-        // If there's no file, no helper text is shown
+        helperText={formData.signature ? formData.signature.name : ''} 
       />
 
-      {/* Date Field */}
       <TextField
         type="date"
         label="Date"
@@ -677,7 +657,7 @@ export default function Membership() {
           shrink: true,
         }}
         onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-        value={formData.date || ''} // Ensure date is stored and displayed
+        value={formData.date || ''} 
       />
 
       <Stack direction="row" spacing={2} justifyContent="space-between">
@@ -685,7 +665,7 @@ export default function Membership() {
         <Button
           variant="contained"
           onClick={handleNextPage}
-          disabled={!isNextButtonEnabled()} // Disable button until form is valid
+          disabled={!isNextButtonEnabled()}
         >
           Next
         </Button>
@@ -700,7 +680,6 @@ export default function Membership() {
           <Typography variant="h6" sx={{ marginBottom: 2 }}>VI. For Cooperative Use Only</Typography>
           
           <Stack spacing={2}>
-            {/* Date of Application Received */}
             <TextField
   type="date"
   label="Date of Application Received"
@@ -746,9 +725,6 @@ export default function Membership() {
     setCooperativeData({ ...cooperativeData, membershipId: e.target.value })
   }
 />
-
-            
-            {/* Remarks */}
             <Typography variant="body1" sx={{ marginBottom: 4 }}>
         Remarks:
       </Typography>
@@ -775,7 +751,6 @@ export default function Membership() {
         />
       </Stack>
             
-            {/* Action Buttons */}
             <Stack direction="row" spacing={2} justifyContent="space-between">
               <Button onClick={handleBackPage}>Back</Button>
               <Button variant="contained"onClick={() => alert('Form Submitted!')} disabled={!isNextButtonEnabled()}>Submit</Button>
