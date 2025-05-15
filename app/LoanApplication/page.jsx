@@ -1,90 +1,32 @@
-'use client'
-import React, { useState } from 'react';
+'use client';
+import React from 'react';
 import { Container, Paper, Typography, TextField, Stack, Button, FormGroup, FormControlLabel, Checkbox } from '@mui/material';
+import { useLoanForm } from '../loan/useLoanForm'; 
 
 export default function LoanApplicationForm() {
- 
-  const [currentPage, setCurrentPage] = useState("personalInfo");
-
-  const handleNextPage = () => {
-    if (currentPage === "personalInfo") setCurrentPage("loanDetails");
-    else if (currentPage === "loanDetails") setCurrentPage("loanSecurity");
-    else if (currentPage === "loanSecurity") setCurrentPage("references");
-    else if (currentPage === "references") setCurrentPage("declaration");
-    else if (currentPage === "declaration") setCurrentPage("cooperative");
-  };
-
-  const handleBackPage = () => {
-    if (currentPage === "loanDetails") setCurrentPage("personalInfo");
-    else if (currentPage === "loanSecurity") setCurrentPage("loanDetails");
-    else if (currentPage === "references") setCurrentPage("loanSecurity");
-    else if (currentPage === "declaration") setCurrentPage("references");
-    else if (currentPage === "cooperative") setCurrentPage("declaration");
-  };
-  const [selectedStatus, setSelectedStatus] = useState('');
-  const [selectedType, setSelectedType] = useState('');
-  const [repaymentPeriod, setRepaymentPeriod] = useState('');
-  const [otherPeriod, setOtherPeriod] = useState('');
-  const [paymentMode, setPaymentMode] = useState(''); 
-  const [otherPaymentMode, setOtherPaymentMode] = useState(''); 
-  const [selectedCollateral, setSelectedCollateral] = useState(''); 
-  const [otherCollateral, setOtherCollateral] = useState(''); 
-  const [loanApproved, setLoanApproved] = useState('');   
-
-    const handleStatusChange = (event) => {
-      const value = event.target.value;
-      setSelectedStatus(value); 
-    };
-    const handleTypeChange = (event) => {
-      const value = event.target.value;
-      setSelectedType(value); 
-    };
-  
-  const handleRepaymentPeriodChange = (event) => {
-    setRepaymentPeriod(event.target.value);
-  };
-
-  const handleOtherPeriodChange = (event) => {
-    setOtherPeriod(event.target.value);
-  };
-
-  const handlePaymentModeChange = (event) => {
-    const value = event.target.value;
-    
-    if (value === 'Other') {
-      setPaymentMode(value); 
-    } else {
-      setPaymentMode(value); 
-    }
-  };
-  const handleOtherPaymentModeChange = (event) => {
-    setOtherPaymentMode(event.target.value); 
-  };
-  
-  const handleCollateralChange = (event) => {
-    const value = event.target.value;
-
-    if (value === 'Others') {
-      setSelectedCollateral(value); 
-    } else {
-      setSelectedCollateral(value); 
-    }
-  };
-
-  const handleOtherCollateralChange = (event) => {
-    setOtherCollateral(event.target.value); 
-  };
-  
-  const handleCheckboxChange = (event) => {
-    const value = event.target.value;
-    
-    if (loanApproved === value) {
-      setLoanApproved(''); 
-    } else {
-      setLoanApproved(value); 
-    }
-  };
-
+  const {
+    currentPage,
+    selectedStatus,
+    selectedType,
+    repaymentPeriod,
+    otherPeriod,
+    paymentMode,
+    otherPaymentMode,
+    selectedCollateral,
+    otherCollateral,
+    loanApproved,
+    handleNextPage,
+    handleBackPage,
+    handleStatusChange,
+    handleTypeChange,
+    handleRepaymentPeriodChange,
+    handleOtherPeriodChange,
+    handlePaymentModeChange,
+    handleOtherPaymentModeChange,
+    handleCollateralChange,
+    handleOtherCollateralChange,
+    handleCheckboxChange,
+  } = useLoanForm();  
 
   return (
     <Container maxWidth="md" sx={{ mt: 3, mb: 5 }}>
@@ -93,7 +35,7 @@ export default function LoanApplicationForm() {
 
         {currentPage === 'personalInfo' && (
           <>
-            <Typography variant="h6" sx={{mb:2}}>I. Personal Information</Typography>
+            <Typography variant="h6" sx={{ mb: 2 }}>I. Personal Information</Typography>
             <Stack spacing={2}>
               <TextField label="Name of Borrower" fullWidth />
               <TextField label="Membership ID Number" fullWidth />
@@ -102,26 +44,25 @@ export default function LoanApplicationForm() {
                 <TextField label="Age" type="number" fullWidth />
               </Stack>
               <FormGroup>
-      <Typography variant="subtitle1">Civil Status</Typography>
-      {['Single', 'Married', 'Widow/er', 'Others'].map((status) => (
-        <FormControlLabel
-          key={status}
-          control={
-            <Checkbox
-              value={status}
-              checked={selectedStatus === status}  
-              onChange={handleStatusChange}
-              color="primary"
-            />
-          }
-          label={status}
-        />
-      ))}
-      {selectedStatus === 'Others' && (
-        <TextField label="If others, specify"  size="small" />
-        
-      )}
-    </FormGroup>
+                <Typography variant="subtitle1">Civil Status</Typography>
+                {['Single', 'Married', 'Widow/er', 'Others'].map((status) => (
+                  <FormControlLabel
+                    key={status}
+                    control={
+                      <Checkbox
+                        value={status}
+                        checked={selectedStatus === status}
+                        onChange={handleStatusChange}
+                        color="primary"
+                      />
+                    }
+                    label={status}
+                  />
+                ))}
+                {selectedStatus === 'Others' && (
+                  <TextField label="If others, specify" size="small" />
+                )}
+              </FormGroup>
               <TextField label="Address" fullWidth />
               <TextField label="Contact Number" fullWidth />
               <TextField label="Email Address" type="email" fullWidth />
@@ -173,7 +114,7 @@ export default function LoanApplicationForm() {
           key={period}
           control={
             <Checkbox
-              checked={repaymentPeriod === period} // Only the selected checkbox will be checked
+              checked={repaymentPeriod === period} 
               onChange={handleRepaymentPeriodChange}
               value={period}
             />
@@ -206,7 +147,7 @@ export default function LoanApplicationForm() {
           key={mode}
           control={
             <Checkbox
-              checked={paymentMode === mode} // Only the selected checkbox will be checked
+              checked={paymentMode === mode} 
               onChange={handlePaymentModeChange}
               value={mode}
             />
@@ -247,7 +188,7 @@ export default function LoanApplicationForm() {
           key={collateral}
           control={
             <Checkbox
-              checked={selectedCollateral === collateral} // Only the selected checkbox will be checked
+              checked={selectedCollateral === collateral} 
               onChange={handleCollateralChange}
               value={collateral}
             />

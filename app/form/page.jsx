@@ -5,17 +5,19 @@ import { useState } from 'react';
 export default function FormPage() {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
+  const [address, setAddress] = useState('');  // New state for Address
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newEntry = { name, age };
+    const newEntry = { name, age, address };  // Include address in the new entry
     const existing = JSON.parse(localStorage.getItem('formData') || '[]');
     const updated = [...existing, newEntry];
     localStorage.setItem('formData', JSON.stringify(updated));
 
     setName('');
     setAge('');
+    setAddress('');  // Reset address field after submission
   };
 
   return (
@@ -60,6 +62,20 @@ export default function FormPage() {
           placeholder="Age"
           value={age}
           onChange={(e) => setAge(e.target.value)}
+          required
+          style={{
+            width: '100%',
+            padding: '10px',
+            borderRadius: '4px',
+            border: '1px solid #ccc',
+            fontSize: '16px',
+          }}
+        />
+        <input 
+          type="text"
+          placeholder="Address"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
           required
           style={{
             width: '100%',

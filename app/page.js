@@ -42,7 +42,7 @@ export default function Navbar() {
 
   const admin = () => {
     handleClose();
-    router.push('/Admin'); 
+    router.push('/AdminApp'); 
   };
 
   return (
