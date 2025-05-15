@@ -40,10 +40,10 @@ export default function Navbar() {
     router.push('/User'); 
   };
 
-  const admin = () => {
-    handleClose();
-    router.push('/AdminApp'); 
-  };
+ const admin = () => {
+  window.location.href = 'app/AdminApp';
+};
+
 
   return (
     <>
