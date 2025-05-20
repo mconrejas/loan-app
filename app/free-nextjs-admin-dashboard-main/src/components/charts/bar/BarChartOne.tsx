@@ -4,7 +4,6 @@ import React from "react";
 import { ApexOptions } from "apexcharts";
 
 import dynamic from "next/dynamic";
-// Dynamically import the ReactApexChart component
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
@@ -92,7 +91,7 @@ export default function BarChartOne() {
   const series = [
     {
       name: "Sales",
-      data: [168, 385, 201, 298, 187, 195, 291, 110, 215, 390, 280, 112],
+      data: [5, 30, 201, 298, 187, 195, 291, 110, 215, 390, 280, 112],
     },
   ];
   return (
