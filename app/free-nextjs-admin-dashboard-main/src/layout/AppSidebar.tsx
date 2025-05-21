@@ -47,7 +47,7 @@ const navItems: NavItem[] = [
     icon: <ListIcon />,
     subItems: [
       { name: "Membership Application", path: "/Membership", pro: false },
-      { name: "Loan Application", path: "/Application", pro: false }
+      { name: "Loan Application", path: "/Loan", pro: false }
     ]
   },
 

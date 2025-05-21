@@ -410,11 +410,11 @@ const isCooperativeSectionValid = () => {
     <>
       <Typography variant="h6">III. Loan Security</Typography>
       <FormGroup>
-        <Typography>Type of Collateral</Typography>
+        <Typography sx={{  mt: 2, mb:1 }}>Type of Collateral</Typography>
        {['Real Property', 'Vehicle', 'Appliances', 'Others'].map((collateral) => (
   <div
     key={collateral}
-    style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}
+    style={{ display: 'flex', alignItems: 'center', marginBottom: 10, marginTop:1 }}
   >
     <Checkbox
       checked={selectedCollateral === collateral}
