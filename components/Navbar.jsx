@@ -12,7 +12,8 @@ import {
   Toolbar,
   IconButton,
   useScrollTrigger,
-  Slide
+  Slide,
+  Box
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -61,59 +62,25 @@ export default function Navbar() {
     <>
       <HideOnScroll>
         <AppBar position="fixed" color="primary">
-          <Toolbar>
-            <IconButton size="large" edge="start" color="inherit" aria-label="logo" onClick={nav}>
-              <AccountCircleIcon />
-            </IconButton>
-
-            <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              My Application
-            </Typography>
-
-            <Stack direction="row" spacing={2}>
-              <Button
-                color="inherit"
-                startIcon={<DashboardIcon />}
-                endIcon={<ArrowDropDownIcon />}
-                onClick={handleClick}
-              >
-                Dashboard
-              </Button>
-
-              <Menu
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+          <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', mr: 10 }}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: '300',
+                  fontFamily: "'Arial', sans-serif",
+                  textAlign: 'center',
+                  fontSize: '1rem',
+                  letterSpacing: '0.5px',
+                  color: '#ffffff',
                 }}
               >
-                <MenuItem onClick={navigateToMembership} sx={{ fontSize: '0.75rem' }}>
-                  Membership Application
-                </MenuItem>
-                <MenuItem onClick={navigateToLoanApplication} sx={{ fontSize: '0.75rem' }}>
-                  Loan Application
-                </MenuItem>
-              </Menu>
-
-              <Button
-                color="inherit"
-                startIcon={<LogoutIcon />}
-                onClick={() => alert('Logging out')}
-              >
-                Logout
-              </Button>
-            </Stack>
+                BILIRAN PROVINCE LIFE CARE MINISTRY COOPERATIVE
+              </Typography>
+            </Box>
           </Toolbar>
         </AppBar>
       </HideOnScroll>
-
-      <Toolbar /> {/* Spacer */}
     </>
   );
 }
