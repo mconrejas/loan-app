@@ -128,9 +128,9 @@ export default function SignInForm() {
                     boxShadow: "0px 0px 12px 4px rgba(12, 110, 241, 0.8)",
                     textShadow:
                       "0 0 5px rgba(12, 110, 241, 0.8), 0 0 10px rgba(12, 110, 241, 0.8)",
-                    transform: "scale(1.05)",
+                    transform: "scale(1.08)",
                   },
-                  transition: "all 0.3s ease-in-out",
+                  transition: "all 0.1s ease-in-out",
                 }}
               >
                 Sign In

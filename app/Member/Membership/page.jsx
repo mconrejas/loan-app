@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import {
   TextField,
   Button,
@@ -15,32 +15,58 @@ import {
   FormGroup,
   Container,
   Paper,
+  SelectChangeEvent,
 } from '@mui/material';
 
+type FormDataType = {
+  fullName: string;
+  dateOfBirth: string;
+  age: string;
+  homeAddress: string;
+  contactNumber: string;
+  emailAddress: string;
+  occupation: string;
+  employerBusiness: string;
+  initialShareCapital: string;
+  minimumRequired: string;
+  beneficiaryName: string;
+  relationship: string;
+  beneficiaryContact: string;
+  signature: File | null;
+  date: string;
+  selectedInfo: string;
+  othersTextPersonal: string;
+};
+
+type CooperativeDataType = {
+  applicationReceivedDate: string;
+  verifiedBy: string;
+  approvalDate: string;
+  membershipId: string;
+};
+
 export default function Membership() {
-  const [currentPage, setCurrentPage] = useState('personalInfo');
-  const [gender, setGender] = useState('');
-  const [approved, setApproved] = useState(false);
-  const [notApproved, setNotApproved] = useState(false);
-  const [membershipStatus, setMembershipStatus] = useState('');
-  const [membershipPeriod, setMembershipPeriod] = useState('');
-  const [selectedPurpose, setSelectedPurpose] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState('');
-  const [isResident, setIsResident] = useState('');
-  const [selectedInfo, setSelectedInfo] = useState('');
-  const [othersText, setOthersText] = useState('');
-  const [othersTextPersonal, setOthersTextPersonal] = useState('');
-  const [othersTextMembership, setOthersTextMembership] = useState('');
-  const [othersTextShareCapital, setOthersTextShareCapital] = useState('');
-  const [cooperativeData, setCooperativeData] = useState({
+  const [currentPage, setCurrentPage] = useState<string>('personalInfo');
+  const [gender, setGender] = useState<string>('');
+  const [approved, setApproved] = useState<boolean>(false);
+  const [notApproved, setNotApproved] = useState<boolean>(false);
+  const [membershipStatus, setMembershipStatus] = useState<string>('');
+  const [membershipPeriod, setMembershipPeriod] = useState<string>('');
+  const [selectedPurpose, setSelectedPurpose] = useState<string>('');
+  const [paymentMethod, setPaymentMethod] = useState<string>('');
+  const [isResident, setIsResident] = useState<string>('');
+  const [selectedInfo, setSelectedInfo] = useState<string[]>([]);
+  const [othersTextPersonal, setOthersTextPersonal] = useState<string>('');
+  const [othersTextMembership, setOthersTextMembership] = useState<string>('');
+  const [othersTextShareCapital, setOthersTextShareCapital] = useState<string>('');
+  const [cooperativeData, setCooperativeData] = useState<CooperativeDataType>({
     applicationReceivedDate: '',
     verifiedBy: '',
     approvalDate: '',
     membershipId: '',
   });
-  
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormDataType>({
     fullName: '',
     dateOfBirth: '',
     age: '',
@@ -54,167 +80,72 @@ export default function Membership() {
     beneficiaryName: '',
     relationship: '',
     beneficiaryContact: '',
-    signature: '',
+    signature: null,
     date: '',
-    selectedInfo: '', 
+    selectedInfo: '',
     othersTextPersonal: '',
   });
 
-  const handleGenderChange = (e) => {
-    setGender(e.target.value);
-  };
-
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleGenderChange = (e: SelectChangeEvent<string>) => {
+    setGender(e.target.value);
+  };
+
   const handleNextPage = () => {
-    const pages = [
-      'personalInfo',
-      'membershipDetails',
-      'shareCapitalContribution',
-      'beneficiaryInfo',
-      'declaration',
-      'Cooperative',
-    ];
+    const pages = ['personalInfo', 'membershipDetails', 'shareCapitalContribution', 'beneficiaryInfo', 'declaration', 'Cooperative'];
     const currentIndex = pages.indexOf(currentPage);
     if (currentIndex < pages.length - 1) setCurrentPage(pages[currentIndex + 1]);
   };
 
   const handleBackPage = () => {
-    const pages = [
-      'personalInfo',
-      'membershipDetails',
-      'shareCapitalContribution',
-      'beneficiaryInfo',
-      'declaration',
-      'Cooperative',
-    ];
+    const pages = ['personalInfo', 'membershipDetails', 'shareCapitalContribution', 'beneficiaryInfo', 'declaration', 'Cooperative'];
     const currentIndex = pages.indexOf(currentPage);
     if (currentIndex > 0) setCurrentPage(pages[currentIndex - 1]);
   };
 
   const isPersonalInfoValid = () => {
     return (
-      formData.fullName !== '' &&
-      formData.dateOfBirth !== '' &&
-      formData.age !== '' &&
-      gender !== '' &&
-      formData.homeAddress !== '' &&
-      formData.contactNumber !== '' &&
-      formData.emailAddress !== '' &&
-      formData.occupation !== '' &&
-      formData.employerBusiness !== '' &&
-      selectedInfo.length === 1 && 
-      (selectedInfo[0] !== 'Others' || othersTextPersonal.trim() !== '') 
-    );
-  }
-  
-  
-
-  const isMembershipDetailsValid = () => {
-    return (
-      isResident !== '' &&
-      selectedPurpose !== '' &&
-      membershipStatus !== '' &&
-      (membershipStatus !== 'Yes' || (membershipStatus === 'Yes' && membershipPeriod !== ''))
+      formData.fullName &&
+      formData.dateOfBirth &&
+      formData.age &&
+      gender &&
+      formData.homeAddress &&
+      formData.contactNumber &&
+      formData.emailAddress &&
+      formData.occupation &&
+      formData.employerBusiness &&
+      selectedInfo.length === 1 &&
+      (selectedInfo[0] !== 'Others' || othersTextPersonal.trim() !== '')
     );
   };
 
-  const isNextButtonEnabled = () => {
-    if (currentPage === 'personalInfo') {
-      return (
-        isPersonalInfoValid() && (selectedInfo !== 'Others' || othersTextPersonal.trim() !== '')
-      );
-    }
-
-    if (currentPage === 'membershipDetails') {
-      return (
-        isMembershipDetailsValid() && (selectedPurpose !== 'Others' || othersTextMembership.trim() !== '')
-      );
-    }
-
-    if (currentPage === 'shareCapitalContribution') {
-      return isShareCapitalValid();
-    }
-
-    if (currentPage === 'beneficiaryInfo') {
-      return isBeneficiaryInfoValid();
-    }
-
-    if (currentPage === 'declaration') {
-      return  isDeclarationValid();
-      };
-    
-      if (currentPage === 'Cooperative') {
-  
-    return  isCooperativeFormValid();
-        };
-
-
-    return false;
+  const isMembershipDetailsValid = () => {
+    return (
+      isResident &&
+      selectedPurpose &&
+      membershipStatus &&
+      (membershipStatus !== 'Yes' || membershipPeriod !== '')
+    );
   };
 
   const isShareCapitalValid = () => {
     return (
-      formData.initialShareCapital !== '' &&
-      formData.minimumRequired !== '' &&
-      paymentMethod !== '' &&
-      (paymentMethod !== 'Other' || (paymentMethod === 'Other' && othersTextShareCapital.trim() !== ''))
+      formData.initialShareCapital &&
+      formData.minimumRequired &&
+      paymentMethod &&
+      (paymentMethod !== 'Other' || othersTextShareCapital.trim() !== '')
     );
-  };
-
-  const handlePurposeChange = (event) => {
-    const { value } = event.target;
-    setSelectedPurpose(value);
-
-    if (value !== 'Others') {
-      setOthersText('');
-    } else {
-      setOthersTextMembership('');
-    }
   };
 
   const isBeneficiaryInfoValid = () => {
     return (
-      formData.beneficiaryName !== '' &&
-      formData.relationship !== '' &&
-      formData.beneficiaryContact !== ''
+      formData.beneficiaryName &&
+      formData.relationship &&
+      formData.beneficiaryContact
     );
-  };
-
-  const handleApprovedChange = (event) => {
-    setApproved(event.target.checked);
-    if (event.target.checked) {
-      setNotApproved(false);
-    }
-  };
-
-  const handleNotApprovedChange = (event) => {
-    setNotApproved(event.target.checked);
-    if (event.target.checked) {
-      setApproved(false);
-    }
-  };
-
-  const handleMembershipStatusChange = (event) => {
-    setMembershipStatus(event.target.value);
-  };
-
-  const handleResidentChange = (event) => {
-    setIsResident(event.target.value);
-  };
-
-  const handleOthersChangePersonal = (event) => {
-    const { value } = event.target;  
-    setSelectedInfo([value]);
-    if (value !== 'Others') {
-      setOthersTextPersonal('');
-    }
-  };
-  
-  const handleOthersTextChangePersonal = (event) => {
-    setOthersTextPersonal(event.target.value);
   };
 
   const isDeclarationValid = () => {
@@ -223,14 +154,6 @@ export default function Membership() {
       formData.signature.size > 0 &&
       formData.date !== ''
     );
-  };
-  
-
-  const handleSubmit = () => {
-    const formDataToSend = new FormData();
-    formDataToSend.append('signature', formData.signature);
-    formDataToSend.append('date', formData.date);
-    console.log('Submitting form data', formDataToSend);
   };
 
   const isCooperativeFormValid = () => {
@@ -242,7 +165,73 @@ export default function Membership() {
       (approved || notApproved)
     );
   };
-  
+
+  const isNextButtonEnabled = () => {
+    switch (currentPage) {
+      case 'personalInfo':
+        return isPersonalInfoValid();
+      case 'membershipDetails':
+        return isMembershipDetailsValid() && (selectedPurpose !== 'Others' || othersTextMembership.trim() !== '');
+      case 'shareCapitalContribution':
+        return isShareCapitalValid();
+      case 'beneficiaryInfo':
+        return isBeneficiaryInfoValid();
+      case 'declaration':
+        return isDeclarationValid();
+      case 'Cooperative':
+        return isCooperativeFormValid();
+      default:
+        return false;
+    }
+  };
+
+  const handleOthersChangePersonal = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setSelectedInfo([value]);
+    if (value !== 'Others') {
+      setOthersTextPersonal('');
+    }
+  };
+
+  const handleOthersTextChangePersonal = (event: ChangeEvent<HTMLInputElement>) => {
+    setOthersTextPersonal(event.target.value);
+  };
+
+  const handlePurposeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setSelectedPurpose(value);
+    if (value !== 'Others') {
+      setOthersTextMembership('');
+    }
+  };
+
+  const handleApprovedChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setApproved(event.target.checked);
+    if (event.target.checked) setNotApproved(false);
+  };
+
+  const handleNotApprovedChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setNotApproved(event.target.checked);
+    if (event.target.checked) setApproved(false);
+  };
+
+  const handleMembershipStatusChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setMembershipStatus(event.target.value);
+  };
+
+  const handleResidentChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setIsResident(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    const formDataToSend = new FormData();
+    if (formData.signature) {
+      formDataToSend.append('signature', formData.signature);
+    }
+    formDataToSend.append('date', formData.date);
+    console.log('Submitting form data', formDataToSend);
+  };
+
  
 
   return (
